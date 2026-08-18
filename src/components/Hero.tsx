@@ -5,20 +5,25 @@ import { IconChevronDown, IconSearch } from "./icons";
 export default function Hero() {
   return (
     // De sticky header staat nu in de flow, dus die hoogte eraf: samen vult dit één scherm.
-    <section className="op-donker relative flex min-h-[calc(100svh-4.75rem)] flex-col justify-end overflow-hidden">
-      <Image
-        src="/images/hero.jpg"
-        alt=""
-        aria-hidden="true"
-        fill
-        priority
-        sizes="100vw"
-        className="object-cover"
-      />
-      <div
-        aria-hidden="true"
-        className="absolute inset-0 bg-gradient-to-t from-ink/90 via-ink/60 to-ink/20 md:bg-gradient-to-r md:from-ink/85 md:via-ink/45 md:to-transparent"
-      />
+    <section className="op-donker relative flex min-h-[calc(100svh-4.75rem)] flex-col justify-end overflow-hidden bg-ink">
+      {/* Onthulling: het pand komt niet zomaar in beeld, het wordt opengeklapt.
+          Beeld + gradient klippen samen zodat je vóór de onthulling gewoon de
+          ink-achtergrond van de sectie ziet, niet een witte flits. */}
+      <div className="hero-reveal absolute inset-0">
+        <Image
+          src="/images/hero.jpg"
+          alt=""
+          aria-hidden="true"
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover"
+        />
+        <div
+          aria-hidden="true"
+          className="absolute inset-0 bg-gradient-to-t from-ink/90 via-ink/60 to-ink/20 md:bg-gradient-to-r md:from-ink/85 md:via-ink/45 md:to-transparent"
+        />
+      </div>
 
       <div className="hero-in relative mx-auto w-full max-w-[1600px] px-6 pb-16 pt-24 sm:px-10 md:pb-24">
         <h1 className="font-display text-4xl font-bold leading-[1.1] text-bg sm:text-5xl lg:text-6xl">

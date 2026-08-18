@@ -118,8 +118,14 @@ export default async function AanbodPage(props: PageProps<"/aanbod">) {
             </div>
           ) : (
             <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-3">
-              {gefilterd.map((listing) => (
-                <PropertyCard key={listing.slug} listing={listing} />
+              {gefilterd.map((listing, i) => (
+                <div
+                  key={listing.slug}
+                  className="grid-in"
+                  style={{ "--i": Math.min(i, 7) } as React.CSSProperties}
+                >
+                  <PropertyCard listing={listing} />
+                </div>
               ))}
             </div>
           )}

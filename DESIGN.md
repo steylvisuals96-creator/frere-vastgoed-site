@@ -37,7 +37,9 @@ Strategie: **Committed** — de taupe draagt volledige sectievlakken (niet allee
 
 **"Dossierkaart"** — elk pand wordt getoond als een vitrine-object met een specificatie-strip eronder (m², slaapkamers, badkamers als harde cijfers, geen iconen-rij met stippen).
 
-De hero volgt bewust de opzet van hun eigen site: sfeerbeeld vol-bleed, "Welkom bij Frère Vastgoed" links onderaan, met de twee knoppen "Ontdek ons aanbod" en "Gratis schatting?". Geen pandcijfers en geen gelabelde listing in de hero.
+De hero volgt bewust de opzet van hun eigen site: sfeerbeeld vol-bleed, "Welkom bij Frère Vastgoed" links onderaan, met een zoekbalk (type + gemeente) en één tekstlink voor de schatting-CTA. Geen pandcijfers en geen gelabelde listing in de hero.
+
+Bel-acties zijn een icoon + nummer (`IconPhone`), nooit los tekstnummer zonder icoon — anders leest het als een verweesd stuk tekst tussen de nav-links in plaats van een duidelijke actie.
 
 ## Componentregels (hard, niet optioneel)
 
@@ -45,7 +47,12 @@ De hero volgt bewust de opzet van hun eigen site: sfeerbeeld vol-bleed, "Welkom 
 - **Geen stip-labels** (geen `•` als scheidingsteken of statuslabel).
 - **Geen →-pijltjes** als motief in links/knoppen.
 - **Geen fontWeight 300** nergens in de typografieschaal.
-- **Geen generieke identieke fade-in-on-scroll overal.** De pagina heeft één geregisseerd motion-moment: de hero-inhoud komt gestaffeld op bij het laden (`.hero-in`). Verder alleen functionele micro-interactie (hover op pandbeeld en knoppen). Voeg geen scroll-fades per sectie toe — dat is precies het patroon dat dit verbiedt.
+- **Geen generieke identieke fade-in-on-scroll overal.** Drie motion-talen, elk met een eigen taak, geen van alle op scroll:
+  - **Hero — onthulling** (`.hero-reveal`): het pand wordt niet zomaar getoond, het wordt opengeklapt (`clip-path`-wipe, 1,1s), gevolgd door de gestaffelde tekst (`.hero-in`). De focale zet van de site.
+  - **Aanbodlijst — gecapte stagger** (`.grid-in`, `--i` per kaart): panden komen als lijst tegelijk op bij het laden, niet één voor één oneindig door — na kaart 8 geen extra vertraging meer.
+  - **Mobiel menu — hoogte-transitie** (`.menu-collapse`, grid-template-rows 0fr→1fr): schuift in/uit i.p.v. abrupt te verschijnen. Padding/border staan op een binnenste div, nooit op het element dat zelf naar 0 moet krimpen — anders blijft dat als een kaal randje staan.
+  
+  Voeg geen vierde, herhaalde scroll-fade toe aan een nieuwe sectie — dat is precies het patroon dat dit verbiedt. Niet elk element heeft motion nodig (testimonial en footer blijven bewust statisch).
 - **`prefers-reduced-motion` wordt gerespecteerd** — animaties en smooth scroll gaan uit.
 - **Focus-ring per ondergrond**: `accent-deep` op licht, `accent` binnen `.op-donker`. Zet die klasse op elke sectie met donkere achtergrond, anders zakt de ring naar 2,8:1.
 

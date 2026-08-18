@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
+import { IconPhone } from "./icons";
 
 const NAV = [
   { label: "Aanbod", href: "/aanbod" },
@@ -58,10 +59,15 @@ export default function Header() {
               {item.label}
             </a>
           ))}
+          {/* Geen los nummer in de lucht: een utility-icoon maakt duidelijk dat
+              dit een actie is, niet nog een navigatie-item. Zo doen premium
+              vastgoedsites (Engel & Völkers, Moyabell) het ook — bellen als
+              icoon-actie, niet als kale tekst tussen de nav-links. */}
           <a
             href="tel:+3289391555"
-            className="font-body text-sm font-semibold text-ink tabular"
+            className="flex items-center gap-2 border-l border-ink/15 pl-6 font-body text-sm font-semibold text-ink tabular transition-colors hover:text-accent-deep"
           >
+            <IconPhone className="h-4 w-4" />
             089 391 555
           </a>
         </nav>
@@ -91,29 +97,34 @@ export default function Header() {
         </button>
       </div>
 
-      {open && (
-        <nav
-          id="hoofdmenu"
-          className="border-t border-ink/10 bg-bg px-6 pb-6 pt-2 md:hidden"
-        >
-          {NAV.map((item) => (
+      {/* Blijft in de DOM (i.p.v. open && ...) zodat de in-/uitschuif kan
+          animeren; grid-template-rows 0fr -> 1fr in plaats van height: auto,
+          want dat laatste kan CSS niet transitioneren. */}
+      <div className={`menu-collapse md:hidden ${open ? "open" : ""}`}>
+        {/* Padding/border staan op dit binnenste div, niet op <nav> zelf: een
+            grid-rij kan naar 0 krimpen, maar de padding van het item dat erin
+            zit niet — die blijft anders als een kaal randje staan. */}
+        <nav id="hoofdmenu" inert={!open}>
+          <div className="border-t border-ink/10 bg-bg px-6 pb-6 pt-2">
+            {NAV.map((item) => (
+              <a
+                key={item.label}
+                href={item.href}
+                onClick={() => setOpen(false)}
+                className="block border-b border-ink/10 py-4 font-display text-xl font-bold text-ink"
+              >
+                {item.label}
+              </a>
+            ))}
             <a
-              key={item.label}
-              href={item.href}
-              onClick={() => setOpen(false)}
-              className="block border-b border-ink/10 py-4 font-display text-xl font-bold text-ink"
+              href="tel:+3289391555"
+              className="mt-5 flex items-center justify-center bg-ink px-6 py-4 font-body text-sm font-semibold text-bg tabular"
             >
-              {item.label}
+              Bel 089 391 555
             </a>
-          ))}
-          <a
-            href="tel:+3289391555"
-            className="mt-5 flex items-center justify-center bg-ink px-6 py-4 font-body text-sm font-semibold text-bg tabular"
-          >
-            Bel 089 391 555
-          </a>
+          </div>
         </nav>
-      )}
+      </div>
     </header>
   );
 }

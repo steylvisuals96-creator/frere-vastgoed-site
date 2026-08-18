@@ -80,6 +80,25 @@ export function IconSearch({ className }: { className?: string }) {
   );
 }
 
+export function IconPhone({ className }: { className?: string }) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={1.5}
+      className={className}
+      aria-hidden="true"
+    >
+      <path
+        d="M6.5 3.5h3l1.5 4-2 1.5a11 11 0 0 0 5.5 5.5l1.5-2 4 1.5v3c0 1.1-.9 2-2 2C10.5 19 5 13.5 4.5 6c0-1.1.9-2 2-2Z"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+
 export function IconChevronDown({ className }: { className?: string }) {
   return (
     <svg
