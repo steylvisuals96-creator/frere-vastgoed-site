@@ -45,7 +45,7 @@ export default function Header() {
             width={140}
             height={42}
             priority
-            className="h-9 w-auto"
+            className="logo-reveal h-9 w-auto"
           />
         </Link>
 

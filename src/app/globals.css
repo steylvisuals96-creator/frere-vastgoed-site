@@ -179,6 +179,28 @@ body {
   font-weight: 600;
 }
 
+/* Logo-reveal in de header: opent vanuit een punt i.p.v. gewoon te faden,
+   met dezelfde taupe-gloed als de cursor — dat glow-motief loopt nu door de
+   site. Vaste px-waarden voor de cirkel i.p.v. procenten: bij een breed,
+   niet-vierkant logo dekt een percentage de hoeken niet betrouwbaar. */
+@keyframes logo-reveal {
+  0% {
+    clip-path: circle(0px at 50% 50%);
+    filter: drop-shadow(0 0 0 rgba(201, 191, 160, 0));
+  }
+  55% {
+    filter: drop-shadow(0 0 8px rgba(201, 191, 160, 0.65));
+  }
+  100% {
+    clip-path: circle(100px at 50% 50%);
+    filter: drop-shadow(0 0 0 rgba(201, 191, 160, 0));
+  }
+}
+
+.logo-reveal {
+  animation: logo-reveal 0.9s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
 /* Eén geregisseerd binnenkomstmoment op de hero, gestaffeld vanuit een
    zichtbare eindtoestand. Geen herhaalde scroll-fades verderop de pagina. */
 @keyframes hero-in {
