@@ -28,10 +28,28 @@ export default function CustomCursor() {
     let targetY = ringY;
     let raf = 0;
 
+    // Zelfde .op-donker-signaal als de chatknop en de focus-ring, maar hier
+    // continu tegen de cursorpositie gecheckt i.p.v. één vaste knop-positie.
+    // Rects van de donkere secties cachen en enkel bij scroll/resize
+    // herberekenen — bij elke mousemove opnieuw de DOM doorzoeken zou nodeloos
+    // zwaar zijn voor iets dat 60x per seconde kan vuren.
+    let darkRects: DOMRect[] = [];
+    function measureDarkSections() {
+      darkRects = [...document.querySelectorAll(".op-donker")].map((el) =>
+        el.getBoundingClientRect(),
+      );
+    }
+    function isOverDark(x: number, y: number) {
+      return darkRects.some((r) => x >= r.left && x <= r.right && y >= r.top && y <= r.bottom);
+    }
+
     function onMove(e: MouseEvent) {
       targetX = e.clientX;
       targetY = e.clientY;
       dot!.style.transform = `translate3d(${targetX}px, ${targetY}px, 0)`;
+      const dark = isOverDark(targetX, targetY);
+      ring!.classList.toggle("on-dark", dark);
+      dot!.classList.toggle("on-dark", dark);
     }
 
     function tick() {
@@ -58,8 +76,11 @@ export default function CustomCursor() {
       dot!.style.opacity = "1";
     }
 
+    measureDarkSections();
     window.addEventListener("mousemove", onMove);
     window.addEventListener("mouseover", onOver);
+    window.addEventListener("scroll", measureDarkSections, { passive: true });
+    window.addEventListener("resize", measureDarkSections);
     document.addEventListener("mouseleave", onLeaveWindow);
     document.addEventListener("mouseenter", onEnterWindow);
     raf = requestAnimationFrame(tick);
@@ -68,6 +89,8 @@ export default function CustomCursor() {
       document.documentElement.classList.remove("custom-cursor-on");
       window.removeEventListener("mousemove", onMove);
       window.removeEventListener("mouseover", onOver);
+      window.removeEventListener("scroll", measureDarkSections);
+      window.removeEventListener("resize", measureDarkSections);
       document.removeEventListener("mouseleave", onLeaveWindow);
       document.removeEventListener("mouseenter", onEnterWindow);
       cancelAnimationFrame(raf);

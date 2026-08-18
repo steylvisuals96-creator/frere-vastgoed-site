@@ -112,6 +112,23 @@ body {
   transform: scale(1.5);
 }
 
+/* Op een donkere sectie (hero, testimonial) is accent-deep te dof en verdwijnt
+   een ink-puntje bijna volledig — zelfde .op-donker-signaal als de chatknop
+   en de focus-ring, hier tegen de cursorpositie zelf gecheckt. */
+.cursor-ring.on-dark .cursor-ring__visual {
+  border-color: var(--accent);
+  box-shadow: 0 0 20px 3px rgba(201, 191, 160, 0.8);
+}
+
+.cursor-ring.on-dark.is-interactive .cursor-ring__visual {
+  border-color: var(--bg);
+  box-shadow: 0 0 26px 5px rgba(244, 242, 237, 0.55);
+}
+
+.cursor-dot.on-dark {
+  background: var(--bg);
+}
+
 /* Zachte gloed-puls op de chatknop, één keer per sessie, zodat bezoekers
    zien dat er iets te vragen valt zonder het paneel geforceerd open te
    duwen (dat voelt op een pitch al snel opdringerig). */
