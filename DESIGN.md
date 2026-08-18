@@ -37,7 +37,7 @@ Strategie: **Committed** — de taupe draagt volledige sectievlakken (niet allee
 
 **"Dossierkaart"** — elk pand wordt getoond als een vitrine-object met een specificatie-strip eronder (m², slaapkamers, badkamers als harde cijfers, geen iconen-rij met stippen).
 
-De hero doet dit bewust **niet**: die introduceert het kantoor en de streek, niet één specifiek pand. Het beeld is sfeer (geen gelabelde listing), en de strip onderaan toont de diensten in plaats van pandcijfers. Een bezoeker mag niet landen op een spec-sheet van één woning.
+De hero volgt bewust de opzet van hun eigen site: sfeerbeeld vol-bleed, "Welkom bij Frère Vastgoed" links onderaan, met de twee knoppen "Ontdek ons aanbod" en "Gratis schatting?". Geen pandcijfers en geen gelabelde listing in de hero.
 
 ## Componentregels (hard, niet optioneel)
 
