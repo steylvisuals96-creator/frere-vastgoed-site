@@ -99,6 +99,56 @@ export function IconPhone({ className }: { className?: string }) {
   );
 }
 
+export function IconChat({ className }: { className?: string }) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={1.5}
+      className={className}
+      aria-hidden="true"
+    >
+      <path
+        d="M4 5h16v11H9l-4 3.5V16H4V5Z"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path d="M8 9h8M8 12.5h5" strokeLinecap="round" />
+    </svg>
+  );
+}
+
+export function IconSend({ className }: { className?: string }) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={1.5}
+      className={className}
+      aria-hidden="true"
+    >
+      <path d="M4 12 20 4l-6.5 16-2.5-7-7-2.5Z" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
+export function IconClose({ className }: { className?: string }) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={1.5}
+      className={className}
+      aria-hidden="true"
+    >
+      <path d="M5 5l14 14M19 5 5 19" strokeLinecap="round" />
+    </svg>
+  );
+}
+
 export function IconChevronDown({ className }: { className?: string }) {
   return (
     <svg

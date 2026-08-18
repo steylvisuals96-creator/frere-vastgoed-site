@@ -36,9 +36,11 @@ Lokale, persoonlijke vastgoedmakelaar in Limburg (As/Genk/Maasmechelen/Oudsberge
 
 - Diensten: verkoop, verhuur, aankoop (aankoopmakelaar), gratis schatting.
 - Contactgegevens zijn vast en moeten correct blijven: Bevrijdingslaan 33, 3665 As — tel 089 391 555 — info@frerevastgoed.be.
-- **Aanbod-bron (beslist, nog niet gebouwd):** live koppeling met hun Zabun-feed. Hun huidige panden draaien al op Zabun (`files.zabun.be`), en er bestaat al een Zabun-integratie uit het SOM Vastgoed-project om op te bouwen. Tot die koppeling er is, staan de panden statisch in de code.
-- Huidige oplevering: alleen homepage (hero, uitgelicht aanbod, testimonial, footer). Geen aanbodoverzicht, pandendetailpagina's, schattingsformulier of tweede taal.
-- **Niet-gemachtigd merkgebruik:** logo, pandfoto's en hero-beeld komen van frerevastgoed.be en worden gebruikt binnen een pitch. De repo is publiek. De site mag niet gepubliceerd of gepresenteerd worden alsof ze de officiële site van Frère is, en niets mag naar Frère verstuurd worden zonder Sams expliciete akkoord per keer.
+- **Aanbod-bron (beslist, nog niet gebouwd):** live koppeling met hun Zabun-feed. Hun huidige panden draaien al op Zabun (`files.zabun.be`), en er bestaat al een Zabun-integratie uit het SOM Vastgoed-project om op te bouwen. Tot die koppeling er is, staan de panden statisch in `src/lib/listings.ts` (20 panden, overgenomen uit hun `/te-koop`-lijst).
+- Oplevering: homepage, `/aanbod` (filterbaar op type/gemeente), `/over-ons` (het echte team), plus een AI-chatwidget op elke pagina.
+- **AI-chatwidget** (`/api/chat`, `src/components/ChatWidget.tsx`): helpt bezoekers aan een pand uit de 20 panden hierboven, én voert een schattingsgesprek dat eindigt in een **indicatieve bandbreedte, nooit een exact bedrag** — altijd expliciet gelabeld als AI-inschatting, nooit als officiële waardebepaling. Draait zonder `AI_GATEWAY_API_KEY` in mock-modus (geen kosten); zodra die key in dít Vercel-project staat (niet dat van investinspain) schakelt hij naar een live model via Vercel AI Gateway. Model instelbaar via `AI_MODEL` env var — check zelf de actuele goedkope/gratis opties in de Gateway-dashboard, prijzen veranderen. Architectuur hergebruikt van het bewezen investinspain.be-widget (`~/Projectpagina - Maralto`, branch `ai-chat-widget`): dependency-vrije serverless functie, tool-calling, in-memory rate limiting. System prompt, aanbodkoppeling en UI volledig herschreven voor Frère.
+- **Lead-bestemming nog niet gekozen** (`src/lib/chat/lead-tool.ts`): `capture_lead` verzamelt naam/e-mail/telefoon en logt server-side, maar stuurt nog nergens naartoe (TODO in de code). Niet stilzwijgend een integratie toevoegen — Sam beslist dit later.
+- **Niet-gemachtigd merkgebruik:** logo, pandfoto's, hero-beeld en teamfoto's komen van frerevastgoed.be en worden gebruikt binnen een pitch. De repo is publiek. De site mag niet gepubliceerd of gepresenteerd worden alsof ze de officiële site van Frère is, en niets mag naar Frère verstuurd worden zonder Sams expliciete akkoord per keer.
 
 ## Brand Commitments
 
@@ -59,7 +61,7 @@ Lokale, persoonlijke vastgoedmakelaar in Limburg (As/Genk/Maasmechelen/Oudsberge
 ## Product Principles
 
 1. Merk (naam, logo, kleurkader) blijft herkenbaar; de uitvoering (typografie, layout, ritme, motion) wordt opnieuw en met meer vakmanschap ontworpen.
-2. Echte content en echte cijfers — nooit lorem ipsum, verzonnen panden of verzonnen claims.
+2. Echte content en echte cijfers — nooit lorem ipsum, verzonnen panden of verzonnen claims. De chatbot mag wél een AI-schatting geven (de bezoeker vroeg daar expliciet om), maar alleen als bandbreedte met het AI-inschatting-label erbij — nooit als vals-precies exact bedrag dat als officieel feit overkomt.
 3. Aanbod bekijken is de primaire actie; schatting-CTA is secundair.
 4. Mobiel is de pitch-viewport, niet de bijzaak.
 5. Geen generieke AI-signatuurpatronen: geen stip-labels, geen pill-knoppen, geen →-pijltjes als motief, geen fontWeight 300, geen identieke fade-animaties overal.

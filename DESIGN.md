@@ -41,6 +41,12 @@ De hero volgt bewust de opzet van hun eigen site: sfeerbeeld vol-bleed, "Welkom 
 
 Bel-acties zijn een icoon + nummer (`IconPhone`), nooit los tekstnummer zonder icoon — anders leest het als een verweesd stuk tekst tussen de nav-links in plaats van een duidelijke actie.
 
+## AI-chatwidget
+
+Zelfde systeem als de rest van de site — géén dark-glassy 3D-kaartjes zoals het investinspain-widget waar de architectuur van hergebruikt is. Bot-bubbels `bg-bg`, gebruiker-bubbels `bg-ink` (contrast zonder rand of dot nodig). Snelkeuzeknoppen en pandkaartjes hoekig, zelfde regels als de rest van de site.
+
+De launcher-knop staat fixed en verandert zelf van `bg-ink`/`bg-bg` naargelang wat erachter scrolt (zelfde `.op-donker`-signaal als de focus-ring): anders verdwijnt hij bijna op de donkere hero/testimonial-secties.
+
 ## Componentregels (hard, niet optioneel)
 
 - **Geen pill-knoppen** — alle knoppen hoekig (0 border-radius of maximaal 2px).
