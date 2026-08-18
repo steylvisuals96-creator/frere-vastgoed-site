@@ -29,7 +29,10 @@ export default function PropertyCard({ listing }: { listing: Listing }) {
           {listing.priceLabel}
         </p>
 
-        <dl className="mt-5 grid grid-cols-2 gap-y-4 border-t border-ink/10 pt-5 sm:grid-cols-4">
+        {/* Altijd 2 kolommen: deze kaart staat ook in een 2- of 3-koloms grid, waar
+            sm:/lg:-breakpoints op de viewport reageren, niet op de (veel smallere)
+            kaartbreedte — 4 kolommen daar geeft geen ruimte voor de labels. */}
+        <dl className="mt-5 grid grid-cols-2 gap-x-4 gap-y-4 border-t border-ink/10 pt-5">
           {listing.area && (
             <div>
               <dt className="flex items-center gap-1.5 text-xs font-medium uppercase tracking-wide text-support">

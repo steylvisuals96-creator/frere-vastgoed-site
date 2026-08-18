@@ -80,20 +80,15 @@ export default function Hero() {
           </button>
         </form>
 
-        <div className="mt-5 flex flex-col gap-3 sm:flex-row sm:items-center">
-          <a
-            href="/aanbod"
-            className="inline-flex items-center justify-center bg-bg px-7 py-4 font-body text-sm font-semibold text-ink transition-colors hover:bg-accent"
-          >
-            Ontdek ons aanbod
-          </a>
-          <a
-            href="tel:+3289391555"
-            className="inline-flex items-center justify-center border border-bg/50 px-7 py-4 font-body text-sm font-semibold text-bg transition-colors hover:border-bg hover:bg-bg hover:text-ink"
-          >
-            Gratis schatting?
-          </a>
-        </div>
+        {/* Geen tweede "ontdek aanbod"-knop hier: de zoekbalk hierboven doet dat al
+            (leeg zoeken = alle 20 panden). Eén overblijvende CTA, als tekstlink om
+            de knoppenstapel niet nog een blok zwaarder te maken. */}
+        <a
+          href="tel:+3289391555"
+          className="mt-6 inline-flex items-center gap-2 font-body text-sm font-semibold text-bg underline decoration-bg/40 decoration-1 underline-offset-4 transition-colors hover:decoration-bg"
+        >
+          Of vraag meteen een gratis schatting aan — 089 391 555
+        </a>
       </div>
     </section>
   );
