@@ -390,7 +390,7 @@ export default function ChatWidget() {
               }}
               rows={1}
               placeholder="Typ uw vraag…"
-              className="max-h-24 flex-1 resize-none border-b border-ink/20 bg-transparent py-2 font-body text-sm text-ink outline-none placeholder:text-support focus:border-accent-deep"
+              className="max-h-24 flex-1 resize-none border-b border-ink/20 bg-transparent py-2 font-body text-sm text-ink outline-none placeholder:text-support focus:border-accent-deep focus-visible:outline-none"
             />
             <button
               type="submit"
