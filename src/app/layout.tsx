@@ -59,10 +59,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       className={`${bricolage.variable} ${inter.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col bg-bg text-ink">
-        <a
-          href="#inhoud"
-          className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:bg-ink focus:px-5 focus:py-3 focus:font-body focus:text-sm focus:font-semibold focus:text-bg"
-        >
+        <a href="#inhoud" className="skip-link font-body">
           Naar de inhoud
         </a>
         {children}

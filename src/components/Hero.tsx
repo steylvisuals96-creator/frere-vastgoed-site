@@ -2,7 +2,8 @@ import Image from "next/image";
 
 export default function Hero() {
   return (
-    <section className="relative flex min-h-[100svh] flex-col justify-end overflow-hidden">
+    // De sticky header staat nu in de flow, dus die hoogte eraf: samen vult dit één scherm.
+    <section className="op-donker relative flex min-h-[calc(100svh-4.75rem)] flex-col justify-end overflow-hidden">
       <Image
         src="/images/hero.jpg"
         alt=""
@@ -17,7 +18,7 @@ export default function Hero() {
         className="absolute inset-0 bg-gradient-to-t from-ink/90 via-ink/60 to-ink/20 md:bg-gradient-to-r md:from-ink/85 md:via-ink/45 md:to-transparent"
       />
 
-      <div className="relative mx-auto w-full max-w-[1600px] px-6 pb-16 pt-32 sm:px-10 md:pb-24">
+      <div className="hero-in relative mx-auto w-full max-w-[1600px] px-6 pb-16 pt-24 sm:px-10 md:pb-24">
         <h1 className="font-display text-4xl font-bold leading-[1.1] text-bg sm:text-5xl lg:text-6xl">
           Welkom bij
           <br />

@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const NAV = [
   { label: "Aanbod", href: "#aanbod" },
@@ -13,8 +13,17 @@ const NAV = [
 export default function Header() {
   const [open, setOpen] = useState(false);
 
+  useEffect(() => {
+    if (!open) return;
+    const bijToets = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setOpen(false);
+    };
+    window.addEventListener("keydown", bijToets);
+    return () => window.removeEventListener("keydown", bijToets);
+  }, [open]);
+
   return (
-    <header className="absolute inset-x-0 top-0 z-20 bg-bg/95 backdrop-blur-sm">
+    <header className="sticky top-0 z-20 bg-bg/95 backdrop-blur-sm">
       <div className="mx-auto flex max-w-[1600px] items-center justify-between px-6 py-5 sm:px-10">
         <Link href="/" className="shrink-0">
           <Image
@@ -57,7 +66,7 @@ export default function Header() {
             className="h-4 w-4"
             fill="none"
             stroke="currentColor"
-            strokeWidth={1.75}
+            strokeWidth={1.5}
             aria-hidden="true"
           >
             {open ? (

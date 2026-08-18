@@ -23,6 +23,8 @@
 
 html {
   scroll-behavior: smooth;
+  /* De sticky header mag ankerdoelen niet afdekken. */
+  scroll-padding-top: 5.5rem;
 }
 
 body {
@@ -54,7 +56,73 @@ body {
   outline-offset: 3px;
 }
 
+/* Op de donkere secties haalt accent-deep maar 2.8:1; de lichte taupe haalt 9.4:1. */
+.op-donker :focus-visible,
+.op-donker:focus-visible {
+  outline-color: var(--accent);
+}
+
 .tabular {
   font-variant-numeric: tabular-nums;
   letter-spacing: -0.01em;
+}
+
+/* Expliciet in plaats van sr-only + focus:not-sr-only: de utility-volgorde liet
+   de clip-path staan, waardoor de skip-link ook bij focus onzichtbaar bleef. */
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  z-index: 50;
+}
+
+.skip-link:focus {
+  left: 1rem;
+  top: 1rem;
+  background: var(--ink);
+  color: var(--bg);
+  padding: 0.75rem 1.25rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+/* Eén geregisseerd binnenkomstmoment op de hero, gestaffeld vanuit een
+   zichtbare eindtoestand. Geen herhaalde scroll-fades verderop de pagina. */
+@keyframes hero-in {
+  from {
+    opacity: 0;
+    transform: translateY(1.25rem);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.hero-in > * {
+  animation: hero-in 0.9s cubic-bezier(0.16, 1, 0.3, 1) backwards;
+}
+
+.hero-in > *:nth-child(1) {
+  animation-delay: 0.05s;
+}
+.hero-in > *:nth-child(2) {
+  animation-delay: 0.16s;
+}
+.hero-in > *:nth-child(3) {
+  animation-delay: 0.27s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }

@@ -45,7 +45,9 @@ De hero volgt bewust de opzet van hun eigen site: sfeerbeeld vol-bleed, "Welkom 
 - **Geen stip-labels** (geen `•` als scheidingsteken of statuslabel).
 - **Geen →-pijltjes** als motief in links/knoppen.
 - **Geen fontWeight 300** nergens in de typografieschaal.
-- **Geen generieke identieke fade-in-on-scroll overal** — motion is functioneel en gevarieerd (bv. de dossierkaart-strip schuift in vanuit de zijkant bij scroll, niet dezelfde fade als de testimonial).
+- **Geen generieke identieke fade-in-on-scroll overal.** De pagina heeft één geregisseerd motion-moment: de hero-inhoud komt gestaffeld op bij het laden (`.hero-in`). Verder alleen functionele micro-interactie (hover op pandbeeld en knoppen). Voeg geen scroll-fades per sectie toe — dat is precies het patroon dat dit verbiedt.
+- **`prefers-reduced-motion` wordt gerespecteerd** — animaties en smooth scroll gaan uit.
+- **Focus-ring per ondergrond**: `accent-deep` op licht, `accent` binnen `.op-donker`. Zet die klasse op elke sectie met donkere achtergrond, anders zakt de ring naar 2,8:1.
 
 ## Dichtheid & ritme
 
