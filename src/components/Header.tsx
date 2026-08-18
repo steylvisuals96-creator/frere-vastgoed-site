@@ -5,8 +5,9 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 
 const NAV = [
-  { label: "Aanbod", href: "#aanbod" },
-  { label: "Reviews", href: "#reviews" },
+  { label: "Aanbod", href: "/aanbod" },
+  { label: "Over ons", href: "/over-ons" },
+  { label: "Reviews", href: "/#reviews" },
   { label: "Contact", href: "#contact" },
 ];
 

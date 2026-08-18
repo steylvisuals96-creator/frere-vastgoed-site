@@ -1,0 +1,247 @@
+export type ListingType = "Huis" | "Appartement" | "Commercieel" | "Grond" | "Project";
+
+export type Listing = {
+  slug: string;
+  type: ListingType;
+  price: number;
+  priceLabel: string;
+  city: string;
+  street?: string;
+  area?: string;
+  plot?: string;
+  beds?: number;
+  baths?: number;
+  image: string;
+  status?: "Nieuw" | "Verkocht";
+  /** Alleen de twee panden met straatnaam hebben een dossierkaart met adres; de rest komt rechtstreeks uit de Zabun-lijst zonder straatnaam. */
+  featured?: boolean;
+};
+
+// Overgenomen uit https://frerevastgoed.be/nl/te-koop (huidig live aanbod).
+// Straatnaam is enkel bekend voor de twee uitgelichte panden op de homepage.
+export const LISTINGS: Listing[] = [
+  {
+    slug: "bree-witte-torenwal",
+    type: "Appartement",
+    price: 185000,
+    priceLabel: "€ 185.000",
+    city: "Bree",
+    street: "Witte Torenwal 5",
+    area: "67,06 m²",
+    beds: 1,
+    baths: 1,
+    image: "/images/pand-bree.jpg",
+    featured: true,
+  },
+  {
+    slug: "dilsen-stokkem-schoolstraat",
+    type: "Huis",
+    price: 499500,
+    priceLabel: "€ 499.500",
+    city: "Dilsen-Stokkem",
+    street: "Schoolstraat 74",
+    area: "209,92 m²",
+    plot: "895 m²",
+    beds: 3,
+    baths: 2,
+    image: "/images/pand-dilsen-stokkem.jpg",
+    featured: true,
+  },
+  {
+    slug: "maasmechelen-huis-425",
+    type: "Huis",
+    price: 425000,
+    priceLabel: "€ 425.000",
+    city: "Maasmechelen",
+    area: "171 m²",
+    plot: "873 m²",
+    beds: 3,
+    baths: 1,
+    image: "/images/panden/maasmechelen-huis-425.jpg",
+  },
+  {
+    slug: "as-huis-330",
+    type: "Huis",
+    price: 330000,
+    priceLabel: "€ 330.000",
+    city: "As",
+    area: "131 m²",
+    plot: "646 m²",
+    beds: 3,
+    baths: 1,
+    image: "/images/panden/as-huis-330.jpg",
+  },
+  {
+    slug: "genk-appartement-266",
+    type: "Appartement",
+    price: 266000,
+    priceLabel: "€ 266.000",
+    city: "Genk",
+    area: "115 m²",
+    beds: 2,
+    baths: 1,
+    image: "/images/panden/genk-app-266.jpg",
+  },
+  {
+    slug: "genk-huis-325",
+    type: "Huis",
+    price: 325000,
+    priceLabel: "€ 325.000",
+    city: "Genk",
+    area: "145 m²",
+    plot: "375 m²",
+    beds: 4,
+    baths: 2,
+    image: "/images/panden/genk-huis-325.jpg",
+  },
+  {
+    slug: "genk-commercieel-169",
+    type: "Commercieel",
+    price: 169000,
+    priceLabel: "€ 169.000",
+    city: "Genk",
+    area: "194 m²",
+    plot: "110 m²",
+    image: "/images/panden/genk-comm-169.jpg",
+  },
+  {
+    slug: "genk-commercieel-65",
+    type: "Commercieel",
+    price: 65000,
+    priceLabel: "€ 65.000",
+    city: "Genk",
+    area: "84 m²",
+    plot: "47 m²",
+    image: "/images/panden/genk-comm-65.jpg",
+  },
+  {
+    slug: "diepenbeek-grond-275",
+    type: "Grond",
+    price: 275000,
+    priceLabel: "€ 275.000",
+    city: "Diepenbeek",
+    plot: "1.317 m²",
+    image: "/images/panden/diepenbeek-grond-275.jpg",
+  },
+  {
+    slug: "as-grond-160",
+    type: "Grond",
+    price: 160000,
+    priceLabel: "€ 160.000",
+    city: "As",
+    area: "275,5 m²",
+    plot: "659 m²",
+    image: "/images/panden/as-grond-160.jpg",
+  },
+  {
+    slug: "opglabbeek-huis-769",
+    type: "Huis",
+    price: 769000,
+    priceLabel: "€ 769.000",
+    city: "Opglabbeek",
+    area: "251,5 m²",
+    plot: "2.690 m²",
+    beds: 4,
+    baths: 1,
+    image: "/images/panden/opglabbeek-huis-769.jpg",
+  },
+  {
+    slug: "genk-appartement-344",
+    type: "Appartement",
+    price: 344000,
+    priceLabel: "€ 344.000",
+    city: "Genk",
+    area: "113 m²",
+    beds: 3,
+    baths: 1,
+    image: "/images/panden/genk-app-344.jpg",
+  },
+  {
+    slug: "houthalen-appartement-259",
+    type: "Appartement",
+    price: 259000,
+    priceLabel: "€ 259.000",
+    city: "Houthalen-Helchteren",
+    area: "81 m²",
+    beds: 2,
+    baths: 1,
+    image: "/images/panden/houthalen-app-259.jpg",
+  },
+  {
+    slug: "as-huis-355",
+    type: "Huis",
+    price: 355000,
+    priceLabel: "Vanaf € 355.000",
+    city: "As",
+    area: "235 m²",
+    plot: "474 m²",
+    beds: 4,
+    baths: 1,
+    image: "/images/panden/as-huis-355.jpg",
+  },
+  {
+    slug: "maasmechelen-grond-570",
+    type: "Grond",
+    price: 570000,
+    priceLabel: "€ 570.000",
+    city: "Maasmechelen",
+    plot: "2.214,98 m²",
+    image: "/images/panden/maasmechelen-grond-570.jpg",
+  },
+  {
+    slug: "as-commercieel-329",
+    type: "Commercieel",
+    price: 329000,
+    priceLabel: "€ 329.000",
+    city: "As",
+    area: "174 m²",
+    plot: "174 m²",
+    image: "/images/panden/as-comm-329.jpg",
+  },
+  {
+    slug: "hasselt-commercieel-275",
+    type: "Commercieel",
+    price: 275000,
+    priceLabel: "€ 275.000",
+    city: "Hasselt",
+    area: "88,4 m²",
+    plot: "78 m²",
+    image: "/images/panden/hasselt-comm-275.jpg",
+  },
+  {
+    slug: "genk-grond-209",
+    type: "Grond",
+    price: 209000,
+    priceLabel: "€ 209.000",
+    city: "Genk",
+    plot: "1.124 m²",
+    image: "/images/panden/genk-grond-209.jpg",
+  },
+  {
+    slug: "hasselt-project-564",
+    type: "Project",
+    price: 564000,
+    priceLabel: "Vanaf € 564.000",
+    city: "Hasselt",
+    image: "/images/panden/hasselt-project-564.jpg",
+  },
+  {
+    slug: "as-grond-135",
+    type: "Grond",
+    price: 135000,
+    priceLabel: "€ 135.000",
+    city: "As",
+    plot: "492 m²",
+    image: "/images/panden/as-grond-135.jpg",
+  },
+];
+
+export const LISTING_TYPES: ListingType[] = [
+  "Huis",
+  "Appartement",
+  "Commercieel",
+  "Grond",
+  "Project",
+];
+
+export const CITIES = Array.from(new Set(LISTINGS.map((l) => l.city))).sort();

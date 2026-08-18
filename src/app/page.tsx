@@ -10,8 +10,8 @@ export default function Home() {
       <Header />
       <main id="inhoud" className="flex-1">
         <Hero />
-        <FeaturedListings />
         <Testimonial />
+        <FeaturedListings />
       </main>
       <Footer />
     </>

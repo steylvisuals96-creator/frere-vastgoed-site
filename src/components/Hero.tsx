@@ -1,4 +1,6 @@
 import Image from "next/image";
+import { CITIES, LISTING_TYPES } from "@/lib/listings";
+import { IconChevronDown, IconSearch } from "./icons";
 
 export default function Hero() {
   return (
@@ -30,16 +32,64 @@ export default function Hero() {
           Oudsbergen en omstreken.
         </p>
 
-        <div className="mt-10 flex flex-col gap-3 sm:flex-row sm:items-center">
+        <form
+          action="/aanbod"
+          method="GET"
+          className="mt-10 flex max-w-2xl flex-col gap-px bg-bg/25 sm:flex-row"
+        >
+          <div className="relative flex-1">
+            <select
+              name="type"
+              defaultValue=""
+              aria-label="Type pand"
+              className="peer w-full appearance-none bg-bg px-5 py-4 pr-10 font-body text-sm font-medium text-ink outline-none"
+            >
+              <option value="">Alle types</option>
+              {LISTING_TYPES.map((t) => (
+                <option key={t} value={t}>
+                  {t}
+                </option>
+              ))}
+            </select>
+            <IconChevronDown className="pointer-events-none absolute right-4 top-1/2 h-4 w-4 -translate-y-1/2 text-ink/50" />
+          </div>
+
+          <div className="relative flex-1">
+            <select
+              name="stad"
+              defaultValue=""
+              aria-label="Gemeente"
+              className="peer w-full appearance-none bg-bg px-5 py-4 pr-10 font-body text-sm font-medium text-ink outline-none"
+            >
+              <option value="">Alle gemeenten</option>
+              {CITIES.map((c) => (
+                <option key={c} value={c}>
+                  {c}
+                </option>
+              ))}
+            </select>
+            <IconChevronDown className="pointer-events-none absolute right-4 top-1/2 h-4 w-4 -translate-y-1/2 text-ink/50" />
+          </div>
+
+          <button
+            type="submit"
+            className="flex items-center justify-center gap-2 bg-accent px-6 py-4 font-body text-sm font-semibold text-ink transition-colors hover:bg-bg"
+          >
+            <IconSearch className="h-4 w-4" />
+            Zoeken
+          </button>
+        </form>
+
+        <div className="mt-5 flex flex-col gap-3 sm:flex-row sm:items-center">
           <a
-            href="#aanbod"
+            href="/aanbod"
             className="inline-flex items-center justify-center bg-bg px-7 py-4 font-body text-sm font-semibold text-ink transition-colors hover:bg-accent"
           >
             Ontdek ons aanbod
           </a>
           <a
             href="tel:+3289391555"
-            className="inline-flex items-center justify-center bg-accent px-7 py-4 font-body text-sm font-semibold text-ink transition-colors hover:bg-bg"
+            className="inline-flex items-center justify-center border border-bg/50 px-7 py-4 font-body text-sm font-semibold text-bg transition-colors hover:border-bg hover:bg-bg hover:text-ink"
           >
             Gratis schatting?
           </a>
