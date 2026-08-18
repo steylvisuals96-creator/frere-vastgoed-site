@@ -35,7 +35,9 @@ Strategie: **Committed** — de taupe draagt volledige sectievlakken (niet allee
 
 ## Signatuurzet
 
-**"Dossierkaart"** — elk pand wordt getoond als een vitrine-object met een specificatie-strip ernaast (m², slaapkamers, badkamers als harde cijfers in een monospace-achtige rangschikking, geen iconen-rij met stippen). De hero herhaalt dit principe op grote schaal: het pand vult het beeld, de adresgegevens en kernfeiten staan ernaast in een vaste kolom — geen gecentreerde tekst-over-foto-overlay.
+**"Dossierkaart"** — elk pand wordt getoond als een vitrine-object met een specificatie-strip eronder (m², slaapkamers, badkamers als harde cijfers, geen iconen-rij met stippen).
+
+De hero doet dit bewust **niet**: die introduceert het kantoor en de streek, niet één specifiek pand. Het beeld is sfeer (geen gelabelde listing), en de strip onderaan toont de diensten in plaats van pandcijfers. Een bezoeker mag niet landen op een spec-sheet van één woning.
 
 ## Componentregels (hard, niet optioneel)
 
