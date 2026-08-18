@@ -8,15 +8,20 @@ web
 
 ## Stack
 
-Next.js (App Router) + TypeScript + Tailwind CSS, scaffolded fresh for this client. Deploys standalone on Vercel (separate from any other SteylVisuals client project).
+Next.js (App Router) + TypeScript + Tailwind CSS, vers gescaffold voor dit project. Deployt standalone op Vercel (los van elk ander SteylVisuals-project). Repo: `steylvisuals96-creator/frere-vastgoed-site` (publiek).
 
 ## Users
 
-Mensen die in de regio As, Genk, Maasmechelen, Oudsbergen en omstreken een woning of appartement willen kopen, huren of verkopen. Primaire bezoekersintentie voor deze eerste oplevering: beschikbaar aanbod doorbladeren ("Aanbod bekijken"), niet in de eerste plaats een schatting aanvragen.
+Twee publieken, in deze volgorde:
+
+1. **Beslisser bij Frère Vastgoed** — het kantoor is nog geen klant. Zij openen de link die Sam stuurt, vergelijken met hun huidige site, en beslissen of ze overstappen. Dit publiek bepaalt of het project doorgaat.
+2. **Eindbezoekers** — mensen in As, Genk, Maasmechelen, Oudsbergen en omstreken die vastgoed willen kopen, huren of verkopen. Primaire intentie op de homepage: beschikbaar aanbod doorbladeren ("Aanbod bekijken"); schatting aanvragen is secundair.
 
 ## Product Purpose
 
-Marketingsite voor het vastgoedkantoor Frère Vastgoed: toont beschikbaar aanbod, bouwt vertrouwen op via klantreviews, en leidt bezoekers naar contact/aanbod. Vervangt de bestaande site van de klant met een eigen, hoogwaardiger ontworpen versie — zelfde merk, sterkere uitvoering.
+**Spec-pitch, geen bevestigde opdracht.** Frère Vastgoed heeft dit niet besteld. De site is een onaangevraagd voorstel dat moet aantonen dat SteylVisuals hun bestaande (Zabun-template) site duidelijk kan verslaan, met als doel de opdracht binnen te halen.
+
+Dat betekent: het werk moet in de eerste seconden zichtbaar beter zijn dan wat ze nu hebben, en tegelijk herkenbaar hún site blijven — een pitch die het merk niet respecteert, verliest.
 
 ## Positioning
 
@@ -24,37 +29,41 @@ Lokale, persoonlijke vastgoedmakelaar in Limburg (As/Genk/Maasmechelen/Oudsberge
 
 ## Operating Context
 
-Bezoeker komt van Google/mond-tot-mond, bekijkt aanbod, leest reviews, neemt contact op via telefoon/mail of komt op afspraak langs op het kantoor in As.
+- **Pitch-scene:** de beslisser bij Frère opent de link, waarschijnlijk op gsm, waarschijnlijk kort. Naast elkaar leggen met frerevastgoed.be is de impliciete vergelijking. Mobiel moet dus minstens even sterk zijn als desktop.
+- **Bezoeker-scene:** komt via Google of mond-tot-mond, bekijkt aanbod, leest reviews, belt of mailt, of komt op afspraak langs op het kantoor in As.
 
 ## Capabilities and Constraints
 
 - Diensten: verkoop, verhuur, aankoop (aankoopmakelaar), gratis schatting.
-- Contactgegevens zijn vast en moeten correct overgenomen worden: Bevrijdingslaan 33, 3665 As — tel 089 391 555 — info@frerevastgoed.be.
-- Eerste oplevering beperkt tot homepage: hero + uitgelicht aanbod en/of testimonials. Geen volledig aanbodoverzicht/pandendetailpagina's in deze fase.
-- Geen backend/CMS gekoppeld in deze fase; content is statisch uit de bestaande klantsite overgenomen.
+- Contactgegevens zijn vast en moeten correct blijven: Bevrijdingslaan 33, 3665 As — tel 089 391 555 — info@frerevastgoed.be.
+- **Aanbod-bron (beslist, nog niet gebouwd):** live koppeling met hun Zabun-feed. Hun huidige panden draaien al op Zabun (`files.zabun.be`), en er bestaat al een Zabun-integratie uit het SOM Vastgoed-project om op te bouwen. Tot die koppeling er is, staan de panden statisch in de code.
+- Huidige oplevering: alleen homepage (hero, uitgelicht aanbod, testimonial, footer). Geen aanbodoverzicht, pandendetailpagina's, schattingsformulier of tweede taal.
+- **Niet-gemachtigd merkgebruik:** logo, pandfoto's en hero-beeld komen van frerevastgoed.be en worden gebruikt binnen een pitch. De repo is publiek. De site mag niet gepubliceerd of gepresenteerd worden alsof ze de officiële site van Frère is, en niets mag naar Frère verstuurd worden zonder Sams expliciete akkoord per keer.
 
 ## Brand Commitments
 
-- Naam en schrijfwijze: "Frère Vastgoed" (met accent grave op de e).
-- Bestaand logo behouden: `public/images/logo.svg` (overgenomen van frerevastgoed.be).
-- Bestaand kleurenpalet behouden als basis: taupe accent `#D1CCBD`, donkergrijs `#4B4B4B`, lichte achtergrond `#F2F2F2`, zwarte tekst. Herkomstsite gebruikt Poppins; dit mag opnieuw beoordeeld/verfijnd worden binnen dat kleurkader.
-- Echte pandfoto's overgenomen: `public/images/pand-bree.jpg` (appartement Bree, Witte Torenwal 5), `public/images/pand-dilsen-stokkem.jpg` (huis Dilsen-Stokkem, Schoolstraat 74).
-- Geen echte foto van Lut Aerden beschikbaar (de bestaande site toont enkel hun logo als generieke "geen foto"-placeholder bij reviews); de nieuwe site gebruikt daarom een monogram-avatar ("LA") in plaats van een misleidende foto.
+- Naam en schrijfwijze: "Frère Vastgoed" (met accent grave).
+- Bestaand logo behouden: `public/images/logo.svg`.
+- Bestaand kleurkader behouden als basis: taupe accent, donkergrijs, lichte achtergrond, zwarte tekst. Hun Poppins is vervangen; het kleurkader niet.
+- Hun eigen hero-beeld en hero-opzet overgenomen: `public/images/hero.jpg`, kop "Welkom bij Frère Vastgoed", knoppen "Ontdek ons aanbod" en "Gratis schatting?" — expliciet zo gevraagd.
+- Echte pandfoto's: `public/images/pand-bree.jpg`, `public/images/pand-dilsen-stokkem.jpg`.
 
 ## Evidence on Hand
 
 - Pand 1: Bree, Witte Torenwal 5 — 67,06 m², 1 slaapkamer, 1 badkamer. Foto: `public/images/pand-bree.jpg`.
 - Pand 2: Dilsen-Stokkem, Schoolstraat 74 — 209,92 m² (perceel 895 m²), 3 slaapkamers, 2 badkamers. Foto: `public/images/pand-dilsen-stokkem.jpg`.
-- Review: Lut Aerden, 26/02/2025 — snelle verkoop (10 dagen), goede uitleg/begeleiding, juiste prijs/papierwerk/communicatie. Foto: `public/images/avatar-lut-aerden.png`.
-- Geen andere klantreviews, prijzen, of aanbodcijfers bevestigd; niet verzinnen bij uitbreiding.
+- Review: Lut Aerden, 26/02/2025 — snelle verkoop (10 dagen), goede uitleg/begeleiding, juiste prijs/papierwerk/communicatie.
+- **Geen foto van Lut Aerden.** Hun site toont daar enkel hun logo als generieke "geen foto"-placeholder; de nieuwe site gebruikt een "LA"-monogram in plaats van een misleidende foto.
+- Geen andere reviews, prijzen, verkoopcijfers, teamleden of aanbodstatistieken bevestigd. Niet verzinnen — een pitch die met verzonnen cijfers binnenkomt, verliest het vertrouwen dat hij moet winnen.
 
 ## Product Principles
 
-1. Merk (naam, logo, kleurkader) blijft herkenbaar; de uitvoering (typografie, layout, ritme, motion) wordt volledig opnieuw en met meer vakmanschap ontworpen.
-2. Echte content en echte cijfers (m², adres, contact) — nooit lorem ipsum of verzonnen panden.
-3. Aanbod bekijken is de primaire actie op deze eerste oplevering; schatting-CTA is secundair.
-4. Geen generieke AI-signatuur-patronen: geen stip-labels, geen pill-knoppen, geen →-pijltjes als motief, geen fontWeight 300, geen identieke fade-animaties overal.
+1. Merk (naam, logo, kleurkader) blijft herkenbaar; de uitvoering (typografie, layout, ritme, motion) wordt opnieuw en met meer vakmanschap ontworpen.
+2. Echte content en echte cijfers — nooit lorem ipsum, verzonnen panden of verzonnen claims.
+3. Aanbod bekijken is de primaire actie; schatting-CTA is secundair.
+4. Mobiel is de pitch-viewport, niet de bijzaak.
+5. Geen generieke AI-signatuurpatronen: geen stip-labels, geen pill-knoppen, geen →-pijltjes als motief, geen fontWeight 300, geen identieke fade-animaties overal.
 
 ## Accessibility & Inclusion
 
-Geen expliciete toegankelijkheidseis door de klant gesteld; standaard WCAG AA-praktijk toepassen (contrast, focus states, alt-teksten) omdat dit een publieke marketingsite is.
+Geen expliciete eis gesteld; standaard WCAG AA-praktijk toepassen (contrast, focus states, alt-teksten) omdat dit een publieke marketingsite is.
