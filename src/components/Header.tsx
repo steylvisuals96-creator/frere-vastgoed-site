@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 
 const NAV = [
@@ -13,6 +14,16 @@ const NAV = [
 
 export default function Header() {
   const [open, setOpen] = useState(false);
+  const pathname = usePathname();
+
+  const naarBoven = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    // Op de homepage zelf is "/" -> "/" geen navigatie, dus geen scroll-reset.
+    // Forceer dan een scroll naar boven i.p.v. niets te doen.
+    if (pathname === "/") {
+      e.preventDefault();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  };
 
   useEffect(() => {
     if (!open) return;
@@ -26,7 +37,7 @@ export default function Header() {
   return (
     <header className="sticky top-0 z-20 bg-bg/95 backdrop-blur-sm">
       <div className="mx-auto flex max-w-[1600px] items-center justify-between px-6 py-5 sm:px-10">
-        <Link href="/" className="shrink-0">
+        <Link href="/" onClick={naarBoven} className="shrink-0">
           <Image
             src="/images/logo.png"
             alt="Frère Vastgoed"
