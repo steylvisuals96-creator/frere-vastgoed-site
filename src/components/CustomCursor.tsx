@@ -7,6 +7,21 @@ import { useEffect, useRef } from "react";
  * Alleen op apparaten met een echte muis (pointer: fine) — op touch blijft
  * de normale aanraakervaring gewoon staan, geen cursor-namaak nodig.
  */
+
+function relativeLuminance(r: number, g: number, b: number) {
+  const a = [r, g, b].map((v) => {
+    v /= 255;
+    return v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4);
+  });
+  return 0.2126 * a[0] + 0.7152 * a[1] + 0.0722 * a[2];
+}
+
+function parseRgb(str: string): { r: number; g: number; b: number; a: number } | null {
+  const m = str.match(/rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*([\d.]+))?\)/);
+  if (!m) return null;
+  return { r: +m[1], g: +m[2], b: +m[3], a: m[4] === undefined ? 1 : +m[4] };
+}
+
 export default function CustomCursor() {
   const ringRef = useRef<HTMLDivElement>(null);
   const dotRef = useRef<HTMLDivElement>(null);
@@ -28,26 +43,27 @@ export default function CustomCursor() {
     let targetY = ringY;
     let raf = 0;
 
-    // Zelfde .op-donker-signaal als de chatknop en de focus-ring, maar hier
-    // continu tegen de cursorpositie gecheckt i.p.v. één vaste knop-positie.
-    // Rects van de donkere secties cachen en enkel bij scroll/resize
-    // herberekenen — bij elke mousemove opnieuw de DOM doorzoeken zou nodeloos
-    // zwaar zijn voor iets dat 60x per seconde kan vuren.
-    let darkRects: DOMRect[] = [];
-    function measureDarkSections() {
-      darkRects = [...document.querySelectorAll(".op-donker")].map((el) =>
-        el.getBoundingClientRect(),
-      );
-    }
-    function isOverDark(x: number, y: number) {
-      return darkRects.some((r) => x >= r.left && x <= r.right && y >= r.top && y <= r.bottom);
+    // Niet "zit dit punt binnen een donkere SECTIE" (te grof: een lichte
+    // zoekbalk binnen de donkere hero gaf dan alsnog de lichte cursor-variant,
+    // pal boven een licht vlak — bijna onzichtbaar). In plaats daarvan: het
+    // echte achtergrondkleurtje op die exacte plek meten en de cursor
+    // omgekeerd daarvan kleuren, zodat er altijd contrast staat.
+    function bgLuminanceAt(x: number, y: number): number {
+      const el = document.elementFromPoint(x, y);
+      let node: HTMLElement | null = el as HTMLElement | null;
+      while (node && node !== document.documentElement) {
+        const c = parseRgb(getComputedStyle(node).backgroundColor);
+        if (c && c.a > 0.5) return relativeLuminance(c.r, c.g, c.b);
+        node = node.parentElement;
+      }
+      return relativeLuminance(244, 242, 237); // val terug op de site-achtergrond (licht)
     }
 
     function onMove(e: MouseEvent) {
       targetX = e.clientX;
       targetY = e.clientY;
       dot!.style.transform = `translate3d(${targetX}px, ${targetY}px, 0)`;
-      const dark = isOverDark(targetX, targetY);
+      const dark = bgLuminanceAt(targetX, targetY) < 0.5;
       ring!.classList.toggle("on-dark", dark);
       dot!.classList.toggle("on-dark", dark);
     }
@@ -76,11 +92,8 @@ export default function CustomCursor() {
       dot!.style.opacity = "1";
     }
 
-    measureDarkSections();
     window.addEventListener("mousemove", onMove);
     window.addEventListener("mouseover", onOver);
-    window.addEventListener("scroll", measureDarkSections, { passive: true });
-    window.addEventListener("resize", measureDarkSections);
     document.addEventListener("mouseleave", onLeaveWindow);
     document.addEventListener("mouseenter", onEnterWindow);
     raf = requestAnimationFrame(tick);
@@ -89,8 +102,6 @@ export default function CustomCursor() {
       document.documentElement.classList.remove("custom-cursor-on");
       window.removeEventListener("mousemove", onMove);
       window.removeEventListener("mouseover", onOver);
-      window.removeEventListener("scroll", measureDarkSections);
-      window.removeEventListener("resize", measureDarkSections);
       document.removeEventListener("mouseleave", onLeaveWindow);
       document.removeEventListener("mouseenter", onEnterWindow);
       cancelAnimationFrame(raf);
