@@ -45,7 +45,11 @@ Bel-acties zijn een icoon + nummer (`IconPhone`), nooit los tekstnummer zonder i
 
 Zelfde systeem als de rest van de site — géén dark-glassy 3D-kaartjes zoals het investinspain-widget waar de architectuur van hergebruikt is. Bot-bubbels `bg-bg`, gebruiker-bubbels `bg-ink` (contrast zonder rand of dot nodig). Snelkeuzeknoppen en pandkaartjes hoekig, zelfde regels als de rest van de site.
 
-De launcher-knop staat fixed en verandert zelf van `bg-ink`/`bg-bg` naargelang wat erachter scrolt (zelfde `.op-donker`-signaal als de focus-ring): anders verdwijnt hij bijna op de donkere hero/testimonial-secties.
+De launcher-knop staat fixed en verandert zelf van `bg-ink`/`bg-bg` naargelang wat erachter scrolt (zelfde `.op-donker`-signaal als de focus-ring): anders verdwijnt hij bijna op de donkere hero/testimonial-secties. Eén keer per sessie een zachte gloed-puls (`.chat-attention`, box-shadow, geen scroll-fade) i.p.v. het paneel geforceerd te openen.
+
+## Custom cursor
+
+Ring met lichte taupe-gloed (`--accent-deep`/`--accent`) + een puntje, alleen op apparaten met een muis (`pointer: fine`). Vergroot bij hover over interactieve elementen. Positie en schaal staan bewust op twee geneste elementen (`CustomCursor.tsx`): positie via JS-transform elke frame (instant, geen transitie), schaal via een aparte CSS-transitie op het binnenste element — nooit width/height/margin animeren, dat gaf layout-thrash (gevangen door de design-detector).
 
 ## Componentregels (hard, niet optioneel)
 

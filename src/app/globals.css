@@ -67,6 +67,82 @@ body {
   letter-spacing: -0.01em;
 }
 
+/* ── Custom cursor ─────────────────────────────────────────────────────
+   Ring met lichte gloed volgt de muis, puntje zit er exact op. Enkel actief
+   op apparaten met een muis (zie CustomCursor.tsx) — de klasse hieronder
+   verbergt dan pas de systeemcursor, zodat er nooit twee tegelijk zichtbaar
+   zijn als JS uitstaat of nog niet geladen is. */
+.custom-cursor-on,
+.custom-cursor-on * {
+  cursor: none !important;
+}
+
+/* Positionering (elke frame, via JS) en schaal (CSS-transition bij hover)
+   staan bewust op twee geneste elementen. Op één element zou een transitie
+   op transform ook de framewijze positie-update vertragen; zo blijft
+   bewegen instant en alleen de schaalverandering soepel. Puur transform,
+   nooit width/height/margin — dat geeft layout-thrash. */
+.cursor-ring {
+  position: fixed;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: 200;
+  opacity: 1;
+  transition: opacity 0.2s;
+  will-change: transform;
+}
+
+.cursor-ring__visual {
+  position: absolute;
+  top: -16px;
+  left: -16px;
+  width: 32px;
+  height: 32px;
+  border: 1.5px solid var(--accent-deep);
+  border-radius: 50%;
+  box-shadow: 0 0 16px 2px rgba(201, 191, 160, 0.55);
+  transform: scale(1);
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.25s, box-shadow 0.25s;
+}
+
+.cursor-ring.is-interactive .cursor-ring__visual {
+  border-color: var(--accent);
+  box-shadow: 0 0 24px 4px rgba(201, 191, 160, 0.75);
+  transform: scale(1.5);
+}
+
+/* Zachte gloed-puls op de chatknop, één keer per sessie, zodat bezoekers
+   zien dat er iets te vragen valt zonder het paneel geforceerd open te
+   duwen (dat voelt op een pitch al snel opdringerig). */
+@keyframes chat-attention {
+  0%, 100% {
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.15);
+  }
+  50% {
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.15), 0 0 0 8px rgba(201, 191, 160, 0.35);
+  }
+}
+
+.chat-attention {
+  animation: chat-attention 1.6s ease-in-out 3;
+}
+
+.cursor-dot {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 5px;
+  height: 5px;
+  margin: -2.5px 0 0 -2.5px;
+  background: var(--ink);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 200;
+  transition: opacity 0.2s;
+  will-change: transform;
+}
+
 /* Expliciet in plaats van sr-only + focus:not-sr-only: de utility-volgorde liet
    de clip-path staan, waardoor de skip-link ook bij focus onzichtbaar bleef. */
 .skip-link {

@@ -159,6 +159,9 @@ export default function ChatWidget() {
   // ...). Zelfde .op-donker-signaal als de focus-ring elders in het project:
   // op een donkere sectie wordt de knop licht, anders donker — altijd contrast.
   const [onDark, setOnDark] = useState(false);
+  // Eén keer per sessie een zachte gloed-puls i.p.v. het paneel geforceerd te
+  // openen — dat laatste voelt op een pitch al snel opdringerig aan.
+  const [attention, setAttention] = useState(false);
 
   useEffect(() => {
     if (open && !opened) {
@@ -166,6 +169,26 @@ export default function ChatWidget() {
       setMessages([{ id: nextId(), role: "assistant", content: GREETING }]);
     }
   }, [open, opened]);
+
+  useEffect(() => {
+    let shown = false;
+    try {
+      shown = sessionStorage.getItem("frereChatAttentionShown") === "1";
+    } catch {
+      // privénavigatie zonder sessionStorage: gewoon nooit tonen
+      shown = true;
+    }
+    if (shown) return;
+    const timer = setTimeout(() => {
+      setAttention(true);
+      try {
+        sessionStorage.setItem("frereChatAttentionShown", "1");
+      } catch {
+        // idem — geen opslag, dan gewoon niet onthouden
+      }
+    }, 6000);
+    return () => clearTimeout(timer);
+  }, []);
 
   useEffect(() => {
     function checkContrast() {
@@ -256,7 +279,11 @@ export default function ChatWidget() {
       <button
         ref={launcherRef}
         type="button"
-        onClick={() => setOpen(true)}
+        onClick={() => {
+          setAttention(false);
+          setOpen(true);
+        }}
+        onAnimationEnd={() => setAttention(false)}
         aria-expanded={open}
         aria-controls={panelId}
         className={`fixed bottom-6 right-6 z-40 flex items-center gap-2 px-5 py-3.5 font-body text-sm font-semibold shadow-lg transition-[opacity,background-color,color] duration-300 sm:right-10 ${
@@ -265,7 +292,7 @@ export default function ChatWidget() {
           onDark
             ? "bg-bg text-ink hover:bg-accent"
             : "bg-ink text-bg hover:bg-accent-deep"
-        }`}
+        } ${attention ? "chat-attention" : ""}`}
       >
         <IconChat className="h-4 w-4" />
         Chat met ons

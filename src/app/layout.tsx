@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Bricolage_Grotesque, Inter } from "next/font/google";
 import ChatWidget from "@/components/ChatWidget";
+import CustomCursor from "@/components/CustomCursor";
 import "./globals.css";
 
 const bricolage = Bricolage_Grotesque({
@@ -65,6 +66,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         </a>
         {children}
         <ChatWidget />
+        <CustomCursor />
       </body>
     </html>
   );
