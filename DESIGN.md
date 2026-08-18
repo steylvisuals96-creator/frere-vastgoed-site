@@ -21,7 +21,7 @@
 | bg | `#F4F2ED` | Basisachtergrond, warm gebroken wit |
 | ink | `#1C1B18` | Primaire tekst, bijna-zwart met warme ondertoon |
 | accent | `#C9BFA0` | Taupe — grote kleurvlakken (secties, kaartachtergronden), niet enkel knoprand |
-| accent-deep | `#8B7F5E` | Donkerdere taupe voor tekst-op-accent en hover-states |
+| accent-deep |  `#6B6146` | Donkerdere taupe voor tekst-op-accent en hover-states |
 | support | `#4B4B46` | Secundaire tekst, labels, dunne lijnen |
 | surface | `#FFFFFF` | Kaarten/panelen op de bg |
 

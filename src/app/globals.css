@@ -4,7 +4,8 @@
   --bg: #f4f2ed;
   --ink: #1c1b18;
   --accent: #c9bfa0;
-  --accent-deep: #8b7f5e;
+  /* Donker genoeg voor 4.5:1 op wit; wordt als tekstkleur gebruikt, niet enkel als vlak. */
+  --accent-deep: #6b6146;
   --support: #4b4b46;
   --surface: #ffffff;
 }

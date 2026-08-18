@@ -104,10 +104,12 @@ export default function FeaturedListings() {
                 </dl>
 
                 <a
-                  href="tel:+3289391555"
+                  href={`mailto:info@frerevastgoed.be?subject=${encodeURIComponent(
+                    `Info over ${listing.street}, ${listing.city}`,
+                  )}`}
                   className="mt-6 inline-flex items-center justify-center border border-ink px-5 py-3 font-body text-sm font-semibold text-ink transition-colors hover:bg-ink hover:text-bg"
                 >
-                  Bekijk dit pand
+                  Vraag info over dit pand
                 </a>
               </div>
             </article>

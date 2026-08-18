@@ -14,10 +14,42 @@ const inter = Inter({
   weight: ["400", "500", "600"],
 });
 
+const TITLE =
+  "Frère Vastgoed — Vastgoedmakelaar in As, Genk, Maasmechelen & Oudsbergen";
+const DESCRIPTION =
+  "Frère Vastgoed begeleidt u bij de verkoop, verhuur en aankoop van vastgoed in As, Genk, Maasmechelen, Oudsbergen en omstreken.";
+
+// Vercel levert VERCEL_PROJECT_PRODUCTION_URL aan bij een deploy; lokaal valt dit
+// terug op de dev-server zodat de OG-afbeelding altijd absoluut oplost.
+const SITE_URL = process.env.VERCEL_PROJECT_PRODUCTION_URL
+  ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
+  : "http://localhost:3500";
+
 export const metadata: Metadata = {
-  title: "Frère Vastgoed — Vastgoedmakelaar in As, Genk, Maasmechelen & Oudsbergen",
-  description:
-    "Frère Vastgoed begeleidt u bij de verkoop, verhuur en aankoop van vastgoed in As, Genk, Maasmechelen, Oudsbergen en omstreken.",
+  metadataBase: new URL(SITE_URL),
+  title: TITLE,
+  description: DESCRIPTION,
+  openGraph: {
+    title: TITLE,
+    description: DESCRIPTION,
+    locale: "nl_BE",
+    type: "website",
+    siteName: "Frère Vastgoed",
+    images: [
+      {
+        url: "/images/hero.jpg",
+        width: 1920,
+        height: 1080,
+        alt: "Frère Vastgoed",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: TITLE,
+    description: DESCRIPTION,
+    images: ["/images/hero.jpg"],
+  },
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
@@ -26,7 +58,15 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       lang="nl"
       className={`${bricolage.variable} ${inter.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col bg-bg text-ink">{children}</body>
+      <body className="min-h-full flex flex-col bg-bg text-ink">
+        <a
+          href="#inhoud"
+          className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:bg-ink focus:px-5 focus:py-3 focus:font-body focus:text-sm focus:font-semibold focus:text-bg"
+        >
+          Naar de inhoud
+        </a>
+        {children}
+      </body>
     </html>
   );
 }

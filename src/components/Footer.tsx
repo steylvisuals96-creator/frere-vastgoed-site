@@ -6,7 +6,7 @@ export default function Footer() {
       <div className="mx-auto flex max-w-[1200px] flex-col gap-12 md:flex-row md:justify-between">
         <div>
           <Image
-            src="/images/logo.svg"
+            src="/images/logo.png"
             alt="Frère Vastgoed"
             width={140}
             height={42}

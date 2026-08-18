@@ -1,6 +1,6 @@
 export default function Testimonial() {
   return (
-    <section className="bg-ink px-6 py-20 sm:px-10 md:py-28">
+    <section id="reviews" className="bg-ink px-6 py-20 sm:px-10 md:py-28">
       <div className="mx-auto max-w-[900px]">
         <p className="font-body text-sm font-semibold uppercase tracking-wide text-accent">
           Wat klanten vertellen
