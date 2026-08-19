@@ -1,6 +1,28 @@
 import { LISTINGS } from "@/lib/listings";
 
 /**
+ * Algemene, publieke feiten over kopen/verkopen in Vlaanderen — geen advies
+ * over een concreet geval, gewoon oriëntatie. Gecheckt via webzoekopdracht
+ * (aug 2026, bronnen: Dewaele, Hillewaere, Aankoopwijzer, Test-Aankoop,
+ * Certipoint — tarieven/termijnen wijzigen, dus dit moet af en toe herzien
+ * worden, niet als vaststaand feit voor eeuwig behandelen).
+ */
+const KOOP_VERKOOP_FEITEN = [
+  "Registratierechten in Vlaanderen: 2% voor de enige eigen woning waar je je domicilie vestigt (voorwaarden: domicilie binnen 3 jaar, minstens 1 jaar onafgebroken aanhouden), 12% standaardtarief voor een tweede verblijf of investeringspand.",
+  "Bij een eigen woning tot € 220.000 (€ 240.000 in kernsteden) is er in 2026 een extra vermindering van € 1.867 op de registratierechten.",
+  "Notariskosten bestaan uit het ereloon (wettelijk vastgelegde schaal), 21% btw daarop, en vaste aktekosten van ongeveer € 900 à € 1.400. Totale aankoopkosten liggen voor een eigen woning doorgaans rond 3–5% van de prijs, voor een tweede verblijf rond 15–17%.",
+  "Sinds 2023 geldt een renovatieverplichting bij aankoop van een woning met EPC-label E of F: de nieuwe eigenaar moet binnen een bepaalde termijn (6 jaar bij aankoop vanaf 2026) minstens label D behalen, anders riskeert die een boete van € 500 tot € 5.000.",
+] as const;
+
+/** Losse, algemeen bekende karakterschets per regio — geen cijfers, geen claims die verificatie vragen. */
+const REGIO_FEITEN = [
+  "Genk: voormalige mijnstad, nu bekend om C-mine (cultuur- en ondernemerssite op de oude mijnsite), groen (Nationaal Park Hoge Kempen vlakbij) en een diverse bevolking.",
+  "Maasmechelen: grensgemeente met Nederland, bekend om Maasmechelen Village (outletshopping) en de ligging aan Nationaal Park Hoge Kempen.",
+  "As: kleine, rustige gemeente, landelijker karakter dan de buurgemeenten, kantoor van Frère Vastgoed zelf.",
+  "Oudsbergen: fusiegemeente (Meeuwen-Gruitrode en Opglabbeek, sinds 2019), bekend om bosgebied Bosland.",
+] as const;
+
+/**
  * Bouwt de aanbodlijst die het model letterlijk krijgt. Dezelfde 20 panden als
  * op /aanbod — het model mag nooit een pand noemen dat hier niet in staat.
  */
@@ -79,6 +101,20 @@ exacte schatting. Nooit fiscale gevolgen of een verkoopstermijn beloven bij die 
 Wil de bezoeker de schatting laten opvolgen door het kantoor, verzamel dan naam, e-mailadres
 en telefoonnummer — nooit meer dan één gegeven per vraag, nooit in het eerste bericht — en
 roep capture_lead aan zodra je alle drie hebt.
+
+KOPEN & VERKOPEN IN VLAANDEREN
+Je mag algemene oriëntatie geven over het aankoopproces: registratierechten, notariskosten,
+de renovatieverplichting bij EPC-label E/F. Houd het op hoofdlijnen en zeg er ALTIJD bij dat
+het afhangt van de persoonlijke situatie en dat een notaris of een makelaar van Frère
+Vastgoed het exacte bedrag/traject bevestigt. Geef nooit een percentage of bedrag als
+zekerheid voor de situatie van de bezoeker specifiek — de feiten hieronder zijn algemeen,
+niet berekend voor hun geval. Nuttige feiten die je wel mag delen, in je eigen woorden:
+${KOOP_VERKOOP_FEITEN.map((f) => `- ${f}`).join("\n")}
+
+REGIOKENNIS
+Gebruik dit bij vragen als "wat is Genk zo?" of "welke gemeente past bij ons?" — als
+gerichte, conversationele zin, nooit als opgesomde lijst:
+${REGIO_FEITEN.map((f) => `- ${f}`).join("\n")}
 
 CONTACTGEGEVENS
 Kantoor: Bevrijdingslaan 33, 3665 As — 089 391 555 — info@frerevastgoed.be.
