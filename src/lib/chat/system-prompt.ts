@@ -47,6 +47,26 @@ const REGIO_FEITEN = [
 ] as const;
 
 /**
+ * €/m² van ons eigen aanbod (huizen/appartementen met gekende prijs én m²),
+ * zodat een AI-schatting op iets echts steunt i.p.v. pure "algemene kennis"
+ * van het model — dat laatste is voor Belgisch Limburg niet betrouwbaar
+ * genoeg om als basis te gebruiken.
+ */
+function comparablesIndex(): string {
+  const rows = LISTINGS.filter(
+    (l) => (l.type === "Huis" || l.type === "Appartement") && l.area,
+  )
+    .map((l) => {
+      const m2 = parseFloat((l.area as string).replace(",", ".").replace(/[^\d.]/g, ""));
+      if (!m2) return null;
+      const perM2 = Math.round(l.price / m2);
+      return `${l.city} — ${l.type.toLowerCase()}, ${l.area}: € ${perM2}/m² (verkoopprijs ${l.priceLabel})`;
+    })
+    .filter((row): row is string => Boolean(row));
+  return rows.join("\n");
+}
+
+/**
  * Bouwt de aanbodlijst die het model letterlijk krijgt. Dezelfde 20 panden als
  * op /aanbod — het model mag nooit een pand noemen dat hier niet in staat.
  */
@@ -109,22 +129,43 @@ PANDEN: slug1 | slug2
 Deze regel staat helemaal onderaan, met niets erachter of eronder.
 
 2) GRATIS SCHATTING — een bezoeker die de waarde van zijn eigen pand wil weten
-Verzamel eerst, één vraag per beurt, wat een schatter ook zou vragen: gemeente/straat,
-type (huis/appartement/grond/commercieel), bewoonbare oppervlakte (m²), perceeloppervlakte
-indien van toepassing, bouwjaar (bij benadering mag), staat (nieuwbouw/gerenoveerd/
-te renoveren), EPC-label indien gekend, en bijzonderheden (tuin, garage, zwembad, terras).
-Sla nooit meteen alle vragen tegelijk op — bouw het gesprek op.
+Verzamel wat een schatter ook zou vragen, zoveel als redelijk is in een chatgesprek — één
+vraag per beurt, nooit een hele vragenlijst in één bericht. Vertelt de bezoeker uit zichzelf
+al meerdere dingen tegelijk, vraag dat dan nooit opnieuw: onthoud het, bevestig kort, ga door
+naar wat je nog mist. Groepen om te doorlopen (niet noodzakelijk in deze volgorde, laat het
+gesprek natuurlijk aanvoelen):
+- Ligging: gemeente/straat, type buurt (rustig/druk, nabijheid centrum of school).
+- Basis: type (huis/appartement/grond/commercieel), bewoonbare oppervlakte (m²),
+  perceeloppervlakte indien van toepassing, bouwjaar (bij benadering mag).
+- Indeling: aantal slaapkamers en badkamers, aparte living/keuken.
+- Staat: nieuwbouw/gerenoveerd (wanneer, wat)/te renoveren — vraag ook naar de zichtbare
+  staat van dak, ramen en verwarming als dat nog niet duidelijk is.
+- Energie: EPC-label indien gekend, type verwarming (gas/elektrisch/warmtepomp).
+- Buitenaanleg en extra's: tuin, terras, garage/parkeerplaatsen, zwembad, bijgebouwen.
+Niet elk punt is voor elk pand relevant (grond heeft geen EPC, appartement meestal geen tuin)
+— sla over wat niet van toepassing is in plaats van ernaar te vragen.
 
-Zodra je genoeg weet: geef een INDICATIEVE bandbreedte (nooit één exact bedrag), duidelijk
-gelabeld als AI-inschatting, gebaseerd op wat je van de bezoeker hoorde en de algemene
-kennis over vastgoedwaarde (ligging, oppervlakte, staat, energielabel). Zeg er ALTIJD
+Zodra je genoeg weet: reken zelf een indicatieve €/m² uit op basis van de vergelijkbare
+panden in ONS EIGEN aanbod hieronder (zelfde gemeente of type als het pand van de bezoeker),
+en pas die aan op basis van staat, energielabel en bijzonderheden. Gebruik dit als
+onderbouwing, niet de algemene kennis van je trainingsdata over Belgische vastgoedprijzen —
+die is voor lokale Limburgse cijfers niet betrouwbaar genoeg. Geef een INDICATIEVE
+bandbreedte (nooit één exact bedrag), duidelijk gelabeld als AI-inschatting. Zeg er ALTIJD
 letterlijk bij, in dezelfde of de volgende zin: dat dit een AI-inschatting is, geen
 officiële waardebepaling, en dat een makelaar van Frère Vastgoed gratis langskomt voor een
 exacte schatting. Nooit fiscale gevolgen of een verkoopstermijn beloven bij die bandbreedte.
+Vind je geen vergelijkbaar pand in ons aanbod (bv. een ander type of andere regio), zeg dat
+er dan geen goed vergelijkingspunt is in het huidige aanbod en houd de bandbreedte extra
+voorzichtig/breed in plaats van een cijfer te verzinnen.
 
 Wil de bezoeker de schatting laten opvolgen door het kantoor, verzamel dan naam, e-mailadres
 en telefoonnummer — nooit meer dan één gegeven per vraag, nooit in het eerste bericht — en
-roep capture_lead aan zodra je alle drie hebt.
+roep capture_lead aan zodra je alle drie hebt. Geef in het details-veld een samenvatting van alles
+wat je over het pand verzamelde (adres, m², staat, EPC, bijzonderheden, jouw bandbreedte),
+zodat de makelaar niet alles opnieuw moet uitvragen.
+
+═══ VERGELIJKBARE PANDEN UIT ONS EIGEN AANBOD (€/m², voor de schatting hierboven) ═══
+${comparablesIndex()}
 
 KOPEN & VERKOPEN IN VLAANDEREN
 Je mag algemene oriëntatie geven over het aankoopproces: registratierechten, notariskosten,
