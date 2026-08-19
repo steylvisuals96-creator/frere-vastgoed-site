@@ -1,11 +1,13 @@
 import { LISTINGS } from "@/lib/listings";
 
 /**
- * Algemene, publieke feiten over kopen/verkopen in Vlaanderen — geen advies
- * over een concreet geval, gewoon oriëntatie. Gecheckt via webzoekopdracht
- * (aug 2026, bronnen: Dewaele, Hillewaere, Aankoopwijzer, Test-Aankoop,
- * Certipoint — tarieven/termijnen wijzigen, dus dit moet af en toe herzien
- * worden, niet als vaststaand feit voor eeuwig behandelen).
+ * Algemene, publieke feiten over kopen/verkopen/verhuren in Vlaanderen —
+ * geen advies over een concreet geval, gewoon oriëntatie. Gecheckt via
+ * webzoekopdracht (aug 2026, bronnen: Dewaele, Hillewaere, Aankoopwijzer,
+ * Test-Aankoop, Certipoint, Verkocht.be, Berabrick, Immotecto, Huurzeker,
+ * gemeentesites As/Genk/Maasmechelen/Oudsbergen — tarieven/termijnen
+ * wijzigen, dus dit moet af en toe herzien worden, niet als vaststaand
+ * feit voor eeuwig behandelen).
  */
 const KOOP_VERKOOP_FEITEN = [
   "Registratierechten in Vlaanderen: 2% voor de enige eigen woning waar je je domicilie vestigt (voorwaarden: domicilie binnen 3 jaar, minstens 1 jaar onafgebroken aanhouden), 12% standaardtarief voor een tweede verblijf of investeringspand.",
@@ -14,12 +16,34 @@ const KOOP_VERKOOP_FEITEN = [
   "Sinds 2023 geldt een renovatieverplichting bij aankoop van een woning met EPC-label E of F: de nieuwe eigenaar moet binnen een bepaalde termijn (6 jaar bij aankoop vanaf 2026) minstens label D behalen, anders riskeert die een boete van € 500 tot € 5.000.",
 ] as const;
 
-/** Losse, algemeen bekende karakterschets per regio — geen cijfers, geen claims die verificatie vragen. */
+/**
+ * Verplichte attesten bij verkoop + het traject compromis-tot-akte. Zelfde
+ * bron-voorbehoud als hierboven: gecheckt aug 2026, geen eeuwig geldig feit.
+ */
+const VERKOOPPROCES_FEITEN = [
+  "Bij verkoop in Vlaanderen zijn altijd nodig: het bodemattest, het EPC (al bij de eerste advertentie), de vastgoedinformatie (vroeger stedenbouwkundig uittreksel), de overstromingsinformatie (P-score/G-score), en de keuring van de elektrische installatie.",
+  "Een asbestattest is verplicht bij verkoop van elk gebouw (of deel ervan) van vóór 2001 — ook dat moet er al zijn vanaf de eerste publicatie.",
+  "Alle verplichte attesten samen kosten gemiddeld € 1.000 à € 1.700, en zijn ten laste van de verkoper. Het EPC kost apart ongeveer € 150–250, het asbestattest € 400–600.",
+  "Het compromis (onderhandse verkoopovereenkomst) is al bindend zodra koper en verkoper akkoord zijn over pand en prijs — nog vóór de notariële akte. Tussen compromis en akte zit meestal maximaal 4 maanden; met een opschortende voorwaarde (bv. de lening van de koper) begint die termijn pas te lopen zodra die voorwaarde vervuld is.",
+] as const;
+
+/**
+ * Verhuur ontbrak volledig terwijl het wél een dienst van Frère is — een
+ * bezoeker met een huurvraag kon voorheen alleen worden afgewimpeld.
+ */
+const VERHUUR_FEITEN = [
+  "De huurwaarborg in Vlaanderen bedraagt maximaal 3 maanden huur, geblokkeerd op een aparte rekening op naam van de huurder.",
+  "Bij een contract van maximaal 3 jaar kunnen huurder én verhuurder op het einde van de looptijd opzeggen met 3 maanden opzegtermijn.",
+  "Een huurcontract moet geregistreerd worden — dat is gratis en is in de praktijk de taak van de verhuurder of de makelaar, niet van de huurder.",
+  "De huurprijs mag jaarlijks geïndexeerd worden op de verjaardag van het contract, op basis van de gezondheidsindex — dat gebeurt nooit automatisch, de verhuurder moet er zelf om vragen.",
+] as const;
+
+/** Losse, algemeen bekende karakterschets + bereikbaarheid per regio — geen cijfers die verificatie vragen buiten wat hieronder staat. */
 const REGIO_FEITEN = [
-  "Genk: voormalige mijnstad, nu bekend om C-mine (cultuur- en ondernemerssite op de oude mijnsite), groen (Nationaal Park Hoge Kempen vlakbij) en een diverse bevolking.",
-  "Maasmechelen: grensgemeente met Nederland, bekend om Maasmechelen Village (outletshopping) en de ligging aan Nationaal Park Hoge Kempen.",
-  "As: kleine, rustige gemeente, landelijker karakter dan de buurgemeenten, kantoor van Frère Vastgoed zelf.",
-  "Oudsbergen: fusiegemeente (Meeuwen-Gruitrode en Opglabbeek, sinds 2019), bekend om bosgebied Bosland.",
+  "Genk: voormalige mijnstad, nu bekend om C-mine (cultuur- en ondernemerssite op de oude mijnsite), groen (Nationaal Park Hoge Kempen vlakbij) en een diverse bevolking. Eigen treinstation, vlot bereikbaar via de E314 (afrit 31, Genk-Centrum).",
+  "Maasmechelen: grensgemeente met Nederland, bekend om Maasmechelen Village (outletshopping) en de ligging aan Nationaal Park Hoge Kempen. Geen eigen treinstation — bus vanaf station Genk of Maastricht; langs de E314 (afrit 33) en de N78.",
+  "As: kleine, rustige gemeente, landelijker karakter dan de buurgemeenten, kantoor van Frère Vastgoed zelf. Geen eigen treinstation, bus naar station Genk voor treinverbindingen.",
+  "Oudsbergen: fusiegemeente (Meeuwen-Gruitrode en Opglabbeek, sinds 2019), bekend om bosgebied Bosland. Bereikbaar via de E314 (afrit 29 Houthalen-Helchteren of afrit 31 Genk-Centrum); dichtstbijzijnde stations zijn Genk en Neerpelt.",
 ] as const;
 
 /**
@@ -104,12 +128,19 @@ roep capture_lead aan zodra je alle drie hebt.
 
 KOPEN & VERKOPEN IN VLAANDEREN
 Je mag algemene oriëntatie geven over het aankoopproces: registratierechten, notariskosten,
-de renovatieverplichting bij EPC-label E/F. Houd het op hoofdlijnen en zeg er ALTIJD bij dat
-het afhangt van de persoonlijke situatie en dat een notaris of een makelaar van Frère
-Vastgoed het exacte bedrag/traject bevestigt. Geef nooit een percentage of bedrag als
-zekerheid voor de situatie van de bezoeker specifiek — de feiten hieronder zijn algemeen,
-niet berekend voor hun geval. Nuttige feiten die je wel mag delen, in je eigen woorden:
+de renovatieverplichting bij EPC-label E/F, welke attesten verplicht zijn bij verkoop, en
+het traject van compromis tot akte. Houd het op hoofdlijnen en zeg er ALTIJD bij dat het
+afhangt van de persoonlijke situatie en dat een notaris of een makelaar van Frère Vastgoed
+het exacte bedrag/traject bevestigt. Geef nooit een percentage of bedrag als zekerheid voor
+de situatie van de bezoeker specifiek — de feiten hieronder zijn algemeen, niet berekend
+voor hun geval. Nuttige feiten die je wel mag delen, in je eigen woorden:
 ${KOOP_VERKOOP_FEITEN.map((f) => `- ${f}`).join("\n")}
+${VERKOOPPROCES_FEITEN.map((f) => `- ${f}`).join("\n")}
+
+VERHUUR
+Zelfde voorbehoud als hierboven: algemene oriëntatie, geen advies voor het concrete geval.
+Nuttige feiten die je wel mag delen:
+${VERHUUR_FEITEN.map((f) => `- ${f}`).join("\n")}
 
 REGIOKENNIS
 Gebruik dit bij vragen als "wat is Genk zo?" of "welke gemeente past bij ons?" — als
