@@ -1,4 +1,12 @@
 import Image from "next/image";
+import Link from "next/link";
+
+const DIENSTEN_LINKS = [
+  { label: "Verkopen", href: "/diensten/verkopen" },
+  { label: "Verhuren", href: "/diensten/verhuren" },
+  { label: "Aankoopmakelaar", href: "/diensten/aankoopmakelaar" },
+  { label: "Gratis schatting", href: "/gratis-schatting" },
+];
 
 export default function Footer() {
   return (
@@ -18,7 +26,25 @@ export default function Footer() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 gap-10 sm:grid-cols-2">
+        <div className="grid grid-cols-1 gap-10 sm:grid-cols-3">
+          <div>
+            <p className="font-body text-sm font-semibold uppercase tracking-wide text-ink/60">
+              Diensten
+            </p>
+            <ul className="mt-3 space-y-2">
+              {DIENSTEN_LINKS.map((d) => (
+                <li key={d.href}>
+                  <Link
+                    href={d.href}
+                    className="font-body text-sm text-ink transition-colors hover:text-accent-deep"
+                  >
+                    {d.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
           <div>
             <p className="font-body text-sm font-semibold uppercase tracking-wide text-ink/60">
               Kantoor
@@ -28,6 +54,12 @@ export default function Footer() {
               <br />
               3665 As
             </p>
+            <Link
+              href="/contact"
+              className="mt-2 inline-block font-body text-sm text-ink underline decoration-1 underline-offset-4 hover:text-accent-deep"
+            >
+              Openingsuren &amp; route
+            </Link>
           </div>
 
           <div>
@@ -50,10 +82,24 @@ export default function Footer() {
         </div>
       </div>
 
-      <div className="mx-auto mt-14 max-w-[1200px] border-t border-ink/15 pt-6">
+      <div className="mx-auto mt-14 flex max-w-[1200px] flex-col gap-4 border-t border-ink/15 pt-6 sm:flex-row sm:items-center sm:justify-between">
         <p className="font-body text-xs text-ink/60">
           © {new Date().getFullYear()} Frère Vastgoed. Alle rechten voorbehouden.
         </p>
+        <div className="flex gap-5">
+          <Link
+            href="/privacybeleid"
+            className="font-body text-xs text-ink/60 underline decoration-1 underline-offset-4 hover:text-ink"
+          >
+            Privacybeleid
+          </Link>
+          <Link
+            href="/gebruiksvoorwaarden"
+            className="font-body text-xs text-ink/60 underline decoration-1 underline-offset-4 hover:text-ink"
+          >
+            Gebruiksvoorwaarden
+          </Link>
+        </div>
       </div>
     </footer>
   );

@@ -8,9 +8,10 @@ import { IconPhone } from "./icons";
 
 const NAV = [
   { label: "Aanbod", href: "/aanbod" },
+  { label: "Diensten", href: "/diensten" },
   { label: "Over ons", href: "/over-ons" },
   { label: "Reviews", href: "/#reviews" },
-  { label: "Contact", href: "#contact" },
+  { label: "Contact", href: "/contact" },
 ];
 
 export default function Header() {
