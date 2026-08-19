@@ -6,10 +6,10 @@ import { LEAD_TOOL, captureLead } from "@/lib/chat/lead-tool";
 // Zonder AI_GATEWAY_API_KEY (nog niet ingesteld in dit Vercel-project) draait
 // alles in mock-modus: geen kosten, wel de echte pandendata en dezelfde flow.
 const GATEWAY_URL = "https://ai-gateway.vercel.sh/v1/chat/completions";
-// Instelbaar via env zodat een goedkoop/gratis model gekozen kan worden zonder
-// codewijziging — check de actuele opties in de Vercel AI Gateway-dashboard,
-// prijzen/beschikbaarheid daar veranderen.
-const MODEL = process.env.AI_MODEL || "anthropic/claude-haiku-4-5";
+// Standaard een gratis model via de Gateway (Sam gecheckt in de dashboard,
+// aug 2026) — instelbaar via AI_MODEL env var zodra dat verandert of een
+// betaald model gewenst is, zonder codewijziging.
+const MODEL = process.env.AI_MODEL || "poolside/laguna-s-2.1-free";
 
 const MAX_MESSAGES = 24;
 const MAX_CHARS = 1500;
