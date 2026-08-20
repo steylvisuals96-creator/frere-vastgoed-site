@@ -82,6 +82,17 @@ body {
    op transform ook de framewijze positie-update vertragen; zo blijft
    bewegen instant en alleen de schaalverandering soepel. Puur transform,
    nooit width/height/margin — dat geeft layout-thrash. */
+/* CustomCursor.tsx laat de JS-listeners enkel weg op grove pointers (touch),
+   maar rendert de elementen zelf altijd — zonder deze regel bleven ze zonder
+   transform op hun CSS-startpositie (0,0) staan: een los rondje linksboven
+   op mobiel. Hier hard verbergen, niet enkel via JS-gedrag afdwingen. */
+@media (pointer: coarse) {
+  .cursor-ring,
+  .cursor-dot {
+    display: none;
+  }
+}
+
 .cursor-ring {
   position: fixed;
   top: 0;

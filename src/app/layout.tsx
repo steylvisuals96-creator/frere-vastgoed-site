@@ -1,3 +1,4 @@
+import { Analytics } from "@vercel/analytics/next";
 import type { Metadata } from "next";
 import { Bricolage_Grotesque, Inter } from "next/font/google";
 import ChatWidget from "@/components/ChatWidget";
@@ -67,6 +68,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         {children}
         <ChatWidget />
         <CustomCursor />
+        <Analytics />
       </body>
     </html>
   );
