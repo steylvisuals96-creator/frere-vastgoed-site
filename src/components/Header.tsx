@@ -10,7 +10,7 @@ const NAV = [
   { label: "Aanbod", href: "/aanbod" },
   { label: "Diensten", href: "/diensten" },
   { label: "Over ons", href: "/over-ons" },
-  { label: "Reviews", href: "/#reviews" },
+  { label: "Gratis schatting", href: "/gratis-schatting" },
   { label: "Contact", href: "/contact" },
 ];
 

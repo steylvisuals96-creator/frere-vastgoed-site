@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
+import StartAiSchattingButton from "@/components/StartAiSchattingButton";
 
 export const metadata: Metadata = {
   title: "Gratis schatting — Frère Vastgoed",
@@ -30,13 +31,14 @@ export default function GratisSchattingPage() {
               Snelste weg: onze AI-assistent
             </h2>
             <p className="mt-3 font-body text-sm leading-relaxed text-support">
-              Klik rechtsonder op &ldquo;Chat met ons&rdquo; en beantwoord een
-              paar gerichte vragen over uw pand (ligging, oppervlakte, staat,
-              energielabel, ...). U krijgt meteen een indicatieve bandbreedte
-              — een AI-inschatting, geen officiële waardebepaling — en kan
-              vragen om door een makelaar van Frère Vastgoed te laten
-              opvolgen voor de exacte schatting.
+              Onze AI-assistent stelt een paar gerichte vragen over uw pand
+              (ligging, oppervlakte, staat, energielabel, ...) en geeft
+              meteen een indicatieve bandbreedte — een AI-inschatting, geen
+              officiële waardebepaling. Nadien kan u vragen om door een
+              makelaar van Frère Vastgoed te laten opvolgen voor de exacte
+              schatting.
             </p>
+            <StartAiSchattingButton className="mt-6" />
           </div>
 
           <div className="mt-10 space-y-5 font-body text-base leading-relaxed text-ink/80">

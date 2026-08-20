@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 import { useEffect, useId, useRef, useState } from "react";
 import { LISTINGS } from "@/lib/listings";
 import { extractListingSlugs, extractOptions } from "@/lib/chat/parse";
@@ -18,6 +19,10 @@ type DisplayMsg = ChatMsg & {
 
 const GREETING =
   "Hallo, ik ben de AI-assistent van Frère Vastgoed. Ik help u graag aan een pand of een gratis schatting van uw eigen woning. Waarmee kan ik u helpen?";
+// Vanaf /gratis-schatting is de intentie al duidelijk: niet opnieuw vragen
+// waarmee we kunnen helpen, meteen het schattingsgesprek starten.
+const SCHATTING_GREETING =
+  "Hallo, ik ben de AI-assistent van Frère Vastgoed. Ik zie dat u een gratis schatting wilt — laten we meteen starten. Om welk type woning gaat het, en wat is het adres of de gemeente?";
 const ERROR_TEXT =
   "Er ging iets mis. Probeer het opnieuw, of bel ons rechtstreeks op 089 391 555.";
 
@@ -144,6 +149,7 @@ function OptionChips({
 }
 
 export default function ChatWidget() {
+  const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const [opened, setOpened] = useState(false);
   const [messages, setMessages] = useState<DisplayMsg[]>([]);
@@ -162,15 +168,38 @@ export default function ChatWidget() {
   // Eén keer per sessie een zachte gloed-puls i.p.v. het paneel geforceerd te
   // openen — dat laatste voelt op een pitch al snel opdringerig aan.
   const [attention, setAttention] = useState(false);
+  // Vanaf /gratis-schatting hoeft niemand nog zelf op de launcher te
+  // klikken: dat is letterlijk het doel van die pagina. Ref i.p.v. state
+  // zodat dit maar één keer per bezoek vuurt, ook als de gebruiker het
+  // paneel daarna zelf weer dichtklikt.
+  const autoOpenedRef = useRef(false);
 
   useEffect(() => {
     if (open && !opened) {
       setOpened(true);
-      setMessages([{ id: nextId(), role: "assistant", content: GREETING }]);
+      const greeting = pathname === "/gratis-schatting" ? SCHATTING_GREETING : GREETING;
+      setMessages([{ id: nextId(), role: "assistant", content: greeting }]);
     }
-  }, [open, opened]);
+  }, [open, opened, pathname]);
 
   useEffect(() => {
+    if (pathname === "/gratis-schatting" && !autoOpenedRef.current) {
+      autoOpenedRef.current = true;
+      setOpen(true);
+    }
+  }, [pathname]);
+
+  // Laat andere componenten (bv. de knop op /gratis-schatting) het paneel
+  // heropenen zonder gedeelde state — handig als iemand het na de
+  // auto-open zelf dichtklikte en later alsnog wil starten.
+  useEffect(() => {
+    const onOpenRequest = () => setOpen(true);
+    window.addEventListener("frere:open-chat", onOpenRequest);
+    return () => window.removeEventListener("frere:open-chat", onOpenRequest);
+  }, []);
+
+  useEffect(() => {
+    if (pathname === "/gratis-schatting") return;
     let shown = false;
     try {
       shown = sessionStorage.getItem("frereChatAttentionShown") === "1";

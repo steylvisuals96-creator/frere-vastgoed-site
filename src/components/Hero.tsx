@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import { CITIES, LISTING_TYPES } from "@/lib/listings";
 import { IconChevronDown, IconSearch } from "./icons";
 
@@ -87,13 +88,15 @@ export default function Hero() {
 
         {/* Geen tweede "ontdek aanbod"-knop hier: de zoekbalk hierboven doet dat al
             (leeg zoeken = alle 20 panden). Eén overblijvende CTA, als tekstlink om
-            de knoppenstapel niet nog een blok zwaarder te maken. */}
-        <a
-          href="tel:+3289391555"
+            de knoppenstapel niet nog een blok zwaarder te maken. Linkt naar de
+            schattingspagina zelf, niet naar tel: — het label belooft een schatting,
+            geen telefoongesprek. */}
+        <Link
+          href="/gratis-schatting"
           className="mt-6 inline-flex items-center gap-2 font-body text-sm font-semibold text-bg underline decoration-bg/40 decoration-1 underline-offset-4 transition-colors hover:decoration-bg"
         >
-          Of vraag meteen een gratis schatting aan — 089 391 555
-        </a>
+          Of vraag meteen een gratis schatting aan
+        </Link>
       </div>
     </section>
   );

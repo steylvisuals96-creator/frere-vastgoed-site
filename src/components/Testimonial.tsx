@@ -6,7 +6,7 @@ export default function Testimonial() {
     >
       <div className="mx-auto max-w-[900px]">
         <p className="font-body text-sm font-semibold uppercase tracking-wide text-accent">
-          Wat klanten vertellen
+          Een recente review
         </p>
         <blockquote className="mt-6 font-display text-2xl font-semibold leading-snug text-bg sm:text-3xl">
           “Zeer goede uitleg en begeleiding bij de snelle verkoop huis van mijn

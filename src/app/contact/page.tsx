@@ -23,16 +23,20 @@ export default function ContactPage() {
   return (
     <>
       <Header />
-      <main id="inhoud" className="flex-1 bg-bg pt-24">
-        <div className="mx-auto max-w-[1100px] px-6 pb-20 pt-10 sm:px-10">
-          <p className="font-body text-sm font-semibold uppercase tracking-wide text-accent-deep">
-            Contact
-          </p>
-          <h1 className="mt-2 font-display text-4xl font-bold leading-[1.05] text-ink sm:text-5xl">
-            Contacteer ons
-          </h1>
+      <main id="inhoud" className="flex-1">
+        <div className="bg-accent px-6 pb-16 pt-32 sm:px-10 md:pt-40">
+          <div className="mx-auto max-w-[1100px]">
+            <p className="font-body text-sm font-semibold uppercase tracking-wide text-ink/70">
+              Contact
+            </p>
+            <h1 className="mt-2 font-display text-4xl font-bold leading-[1.05] text-ink sm:text-5xl">
+              Contacteer ons
+            </h1>
+          </div>
+        </div>
 
-          <div className="mt-12 grid gap-12 md:grid-cols-2">
+        <div className="mx-auto max-w-[1100px] bg-bg px-6 pb-20 pt-14 sm:px-10">
+          <div className="grid gap-12 md:grid-cols-2">
             <div>
               <h2 className="font-display text-xl font-bold text-ink">
                 Kantoor

@@ -14,25 +14,27 @@ export default function OverOnsPage() {
   return (
     <>
       <Header />
-      <main id="inhoud" className="flex-1 bg-bg pt-24">
-        <div className="mx-auto max-w-[900px] px-6 pb-16 pt-10 sm:px-10">
-          <p className="font-body text-sm font-semibold uppercase tracking-wide text-accent-deep">
-            Over ons
-          </p>
-          <h1 className="mt-2 font-display text-4xl font-bold leading-[1.05] text-ink sm:text-5xl">
-            Een jong team, uitsluitend erkende makelaars.
-          </h1>
-          <p className="mt-6 max-w-2xl font-body text-lg leading-relaxed text-ink/80">
-            Frère Vastgoed bestaat uit een jong en sterk gemotiveerd team,
-            uitsluitend BIV- en CIB-erkende vastgoedmakelaars. Wij leggen de
-            nadruk op een persoonlijke service en een op maat gemaakt plan —
-            want iedere transactie is anders. Als betrouwbare vastgoedpartner
-            willen wij voor u het verschil maken met eerlijk, transparant en
-            objectief advies.
-          </p>
+      <main id="inhoud" className="flex-1">
+        <div className="bg-accent px-6 pb-16 pt-32 sm:px-10 md:pt-40">
+          <div className="mx-auto max-w-[900px]">
+            <p className="font-body text-sm font-semibold uppercase tracking-wide text-ink/70">
+              Over ons
+            </p>
+            <h1 className="mt-2 font-display text-4xl font-bold leading-[1.05] text-ink sm:text-5xl">
+              Een jong team, uitsluitend erkende makelaars.
+            </h1>
+            <p className="mt-6 max-w-2xl font-body text-lg leading-relaxed text-ink/80">
+              Frère Vastgoed bestaat uit een jong en sterk gemotiveerd team,
+              uitsluitend BIV- en CIB-erkende vastgoedmakelaars. Wij leggen de
+              nadruk op een persoonlijke service en een op maat gemaakt plan —
+              want iedere transactie is anders. Als betrouwbare vastgoedpartner
+              willen wij voor u het verschil maken met eerlijk, transparant en
+              objectief advies.
+            </p>
+          </div>
         </div>
 
-        <div className="mx-auto max-w-[1100px] px-6 pb-24 sm:px-10">
+        <div className="mx-auto max-w-[1100px] bg-bg px-6 pb-24 pt-14 sm:px-10">
           {TEAM.map((member, i) => (
             <div
               key={member.slug}
