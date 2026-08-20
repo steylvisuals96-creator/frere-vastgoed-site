@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
+import AanbodResults from "@/components/AanbodResults";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
-import PropertyCard from "@/components/PropertyCard";
 import { IconChevronDown } from "@/components/icons";
 import { CITIES, LISTING_TYPES, LISTINGS, ListingType } from "@/lib/listings";
 
@@ -100,35 +100,7 @@ export default async function AanbodPage(props: PageProps<"/aanbod">) {
         </div>
 
         <div className="mx-auto max-w-[1200px] px-6 py-14 sm:px-10">
-          {gefilterd.length === 0 ? (
-            <div className="border border-ink/10 bg-surface px-8 py-16 text-center">
-              <p className="font-display text-xl font-bold text-ink">
-                Geen panden gevonden voor deze combinatie.
-              </p>
-              <p className="mt-3 font-body text-sm text-support">
-                Probeer een ander type of een andere gemeente, of laat ons
-                weten wat u zoekt.
-              </p>
-              <a
-                href="mailto:info@frerevastgoed.be?subject=Zoekwens"
-                className="mt-6 inline-flex items-center justify-center bg-ink px-6 py-3 font-body text-sm font-semibold text-bg transition-colors hover:bg-accent-deep"
-              >
-                Laat ons uw zoekwens weten
-              </a>
-            </div>
-          ) : (
-            <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-3">
-              {gefilterd.map((listing, i) => (
-                <div
-                  key={listing.slug}
-                  className="grid-in"
-                  style={{ "--i": Math.min(i, 7) } as React.CSSProperties}
-                >
-                  <PropertyCard listing={listing} />
-                </div>
-              ))}
-            </div>
-          )}
+          <AanbodResults listings={gefilterd} />
         </div>
       </main>
       <Footer />

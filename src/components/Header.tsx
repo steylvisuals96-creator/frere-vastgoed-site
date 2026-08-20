@@ -28,6 +28,17 @@ export default function Header() {
   };
 
   useEffect(() => {
+    // De logo-Link is de enige soft-navigatie in de header (de rest zijn
+    // gewone <a>'s, die altijd al bovenaan starten). Bij een soft-navigatie
+    // vanaf een diep gescrolde pagina bleef de scrollpositie soms hangen
+    // (browser scroll-anchoring tijdens de DOM-swap) — forceer bovenaan bij
+    // elke routewissel, tenzij er een hash-doel is.
+    if (!window.location.hash) {
+      window.scrollTo(0, 0);
+    }
+  }, [pathname]);
+
+  useEffect(() => {
     if (!open) return;
     const bijToets = (e: KeyboardEvent) => {
       if (e.key === "Escape") setOpen(false);

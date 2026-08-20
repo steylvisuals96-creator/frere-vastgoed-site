@@ -15,11 +15,32 @@ export type Listing = {
   status?: "Nieuw" | "Verkocht";
   /** Alleen de twee panden met straatnaam hebben een dossierkaart met adres; de rest komt rechtstreeks uit de Zabun-lijst zonder straatnaam. */
   featured?: boolean;
+  location?: Location;
+};
+
+/**
+ * Eenmalig opgezocht via OpenStreetMap Nominatim (gratis, geen key) en hier
+ * vast ingevuld — geen runtime-geocoding. "address" enkel voor de 2 panden
+ * met een echte straatnaam; de overige 18 hebben enkel een gemeente, dus
+ * "city" (gemeentecentrum) om geen valse precisie te suggereren op de kaart.
+ */
+export type Location = { lat: number; lng: number; precision: "address" | "city" };
+
+const CITY_CENTER: Record<string, Location> = {
+  Maasmechelen: { lat: 50.9634179, lng: 5.6960212, precision: "city" },
+  As: { lat: 51.0063339, lng: 5.5831347, precision: "city" },
+  Genk: { lat: 50.9654864, lng: 5.5001456, precision: "city" },
+  Diepenbeek: { lat: 50.9124826, lng: 5.4192856, precision: "city" },
+  Opglabbeek: { lat: 51.0429949, lng: 5.581962, precision: "city" },
+  "Houthalen-Helchteren": { lat: 51.0566984, lng: 5.3830618, precision: "city" },
+  Hasselt: { lat: 50.9303735, lng: 5.3378043, precision: "city" },
+  Bree: { lat: 51.1416131, lng: 5.5974552, precision: "city" },
+  "Dilsen-Stokkem": { lat: 51.0284779, lng: 5.7311405, precision: "city" },
 };
 
 // Overgenomen uit https://frerevastgoed.be/nl/te-koop (huidig live aanbod).
 // Straatnaam is enkel bekend voor de twee uitgelichte panden op de homepage.
-export const LISTINGS: Listing[] = [
+const RAW_LISTINGS: Listing[] = [
   {
     slug: "bree-witte-torenwal",
     type: "Appartement",
@@ -32,6 +53,7 @@ export const LISTINGS: Listing[] = [
     baths: 1,
     image: "/images/pand-bree.jpg",
     featured: true,
+    location: { lat: 51.1422991, lng: 5.6001755, precision: "address" },
   },
   {
     slug: "dilsen-stokkem-schoolstraat",
@@ -46,6 +68,7 @@ export const LISTINGS: Listing[] = [
     baths: 2,
     image: "/images/pand-dilsen-stokkem.jpg",
     featured: true,
+    location: { lat: 51.0376094, lng: 5.7153697, precision: "address" },
   },
   {
     slug: "maasmechelen-huis-425",
@@ -235,6 +258,13 @@ export const LISTINGS: Listing[] = [
     image: "/images/panden/as-grond-135.jpg",
   },
 ];
+
+// De 2 panden met een echte straatnaam hebben hun precieze location al; de
+// overige 18 krijgen het gemeentecentrum uit CITY_CENTER erbij.
+export const LISTINGS: Listing[] = RAW_LISTINGS.map((l) => ({
+  ...l,
+  location: l.location ?? CITY_CENTER[l.city],
+}));
 
 export const LISTING_TYPES: ListingType[] = [
   "Huis",
